@@ -1,6 +1,6 @@
 @ ARM Assembly - Lab 1
-@ E Number :
-@ Name :
+@ E Number : E/18/397
+@ Name : Wijerathne E.S.G.
 
 	.text 	@ instruction memory
 	.global main
@@ -28,17 +28,17 @@ main:
 	
 	ldr r5, [r0, #36] @ loading a[9] to r5
 	ldr r6, [r0, #12] @ loading a[3] to r6
-	ldr r7, [r1, #4] @ loading b[1] to r7
+	ldr r7, [r1, #4]  @ loading b[1] to r7
 	
-	add r5, r5, #6  @ r5 = r5 + 6		
-	sub r5, r5, r6	@ r5 = r5 - a[3]
-	add r5, r5, r7  @ r5 = r5 + b[1]
+	add r5, r5, #6    @ r5 = a[9] + 6		
+	sub r5, r5, r6	  @ r5 = a[9] + 6	- a[3]
+	add r5, r5, r7    @ r5 = a[9] + 6	- a[3] + b[1]
 	
-	sub r5, r5, r2  @ r5 = r5 - c
-	sub r5, r5, r3	@ r5 = r5 - d
-	add r5, r5, r4  @ r5 = r5 + e
+	sub r5, r5, r2    @ r5 = a[9] + 6	- a[3] + b[1] - c
+	sub r5, r5, r3	  @ r5 = a[9] + 6	- a[3] + b[1] - c - d
+	add r5, r5, r4    @ r5 = a[9] + 6	- a[3] + b[1] - c - d + e
 	
-	str r5, [r1,#16] @ storing r5 in b[4]
+	str r5, [r1,#16]  @ storing r5 in b[4]
 	
 	
 
