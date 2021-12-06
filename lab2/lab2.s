@@ -24,6 +24,7 @@ main:
 
 
 	@ ---------------------
+	
 	mov r5,#0    	 @ sum = 0
 	mov r6,#0   	 @   i = 0
 	
@@ -45,9 +46,9 @@ loop1:	cmp r6, #10   @ comparing i with 10
 				
 				exit3:  
 				add r1, r1, #1   @ j++
-				b loop2          @ calling loop2 again
-				exit2:
-	
+				b loop2 		 @ calling loop2 again
+				
+	exit2:
 	add r6,r6,#1   @ i++
 	b loop1;       @ calling loop1 again	
 	exit1:         @ exit from loop1
