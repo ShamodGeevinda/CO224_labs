@@ -5,15 +5,81 @@
 
 	
 @ Write YOUR CODE HERE	
+@GCD(int a,int b){
+@	if(b==0){
+@		return a;
+@	}else{
+@		return GCD(b, a%b);
+@	}
+@}
 
 @ ---------------------	
-gcd:
+gcd: @ r0 = a @ r1 =b
+sub sp, sp, #4
+str lr , [sp, #0]
 
 
+cmp r1, #0
+beq exit
+
+b mod
+done:
+
+bl gcd
+
+exit:
+
+ldr lr , [sp, #0]
+
+add sp, sp, #4
+mov pc, lr
 
 
-
-
+mod:
+			sub		sp, sp, #20
+			str		r4 , [sp, #16]
+			str		r5 , [sp, #12]
+			str		r6 , [sp, #8]
+			str		r7 , [sp, #4]
+			str		r8 , [sp, #0]
+			
+			mov		r4, #0
+			mov		r6, r0
+			mov		r7, r1
+while:
+			cmp		r0, r1
+			
+			ble		exit_while
+			add		r1, r1, r7
+			add		r4, r4, #1
+			b		while
+exit_while:
+			
+			
+			mov		r8, #0
+			mov		r5, #0
+loop:
+			cmp		r8, r4
+			bgt		exloop
+			add		r5, r5, r7
+			add		r8, r8, #1
+			b		loop
+			
+			
+			
+exloop:
+			mov		r1, r6
+			sub		r6, r5, r0
+			mov		r1, r6
+			mov		r0, r7
+			
+			ldr		r4 , [sp, #16]
+			ldr		r5 , [sp, #12]
+			ldr		r6 , [sp, #8]
+			ldr		r7 , [sp, #4]
+			ldr		r8 , [sp, #0]
+			add		sp, sp, #20
+			b		done
 
 
 
