@@ -14,28 +14,32 @@
 @}
 
 @ ---------------------	
+
 gcd: @ r0 = a @ r1 =b
+
+@ stack handeling
 sub sp, sp, #4
 str lr , [sp, #0]
 
 
-cmp r1, #0
-beq exit
+cmp r1, #0 
+beq exit  @ if b==0 return a
 
-b mod
+b mod @cal culate a%b
 done:
 
-bl gcd
+bl gcd @ branch and link to gcd fn
 
 exit:
 
+@ restore stack and returning
 ldr lr , [sp, #0]
-
 add sp, sp, #4
 mov pc, lr
 
 
 mod:
+			@ preserving using register values in stack
 			sub		sp, sp, #20
 			str		r4 , [sp, #16]
 			str		r5 , [sp, #12]
@@ -43,19 +47,23 @@ mod:
 			str		r7 , [sp, #4]
 			str		r8 , [sp, #0]
 			
-			mov		r4, #0
+			mov		r4, #0 @ count  =0
+
+			@ saving initial values of r0, r1
 			mov		r6, r0
 			mov		r7, r1
+
+			@ getting how many counts need to pass r0, by r1
 while:
 			cmp		r0, r1
 			
 			ble		exit_while
 			add		r1, r1, r7
-			add		r4, r4, #1
+			add		r4, r4, #1 @ count++
 			b		while
 exit_while:
 			
-			
+			@ calculating count * r1
 			mov		r8, #0
 			mov		r5, #0
 loop:
@@ -68,11 +76,12 @@ loop:
 			
 			
 exloop:
-			mov		r1, r6
-			sub		r6, r5, r0
-			mov		r1, r6
-			mov		r0, r7
+			mov		r1, r6 @ resore original value of r0
+			sub		r6, r5, r0 @ calculate r0 % r1
+			mov		r1, r6 @ r1 = r0 % r1
+			mov		r0, r7 @ r0 = r1
 			
+			@ restoring values
 			ldr		r4 , [sp, #16]
 			ldr		r5 , [sp, #12]
 			ldr		r6 , [sp, #8]
@@ -80,9 +89,6 @@ exloop:
 			ldr		r8 , [sp, #0]
 			add		sp, sp, #20
 			b		done
-
-
-
 
 
 @ ---------------------	
