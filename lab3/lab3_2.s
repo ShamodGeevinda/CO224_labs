@@ -14,8 +14,8 @@
 @}
 
 @ ---------------------	
-
-gcd: @ r0 = a @ r1 =b
+ @ r0 = a @ r1 =b
+gcd:
 
 			@ stack handeling
 			sub sp, sp, #4
@@ -75,8 +75,8 @@ main:
 	sub sp, sp, #4
 	str lr, [sp, #0]
 
-	mov r4, #64 	@the value a
-	mov r5, #24   	@the value b
+	mov r4, #10 	@the value a
+	mov r5, #10   	@the value b
 	
 
 	@ calling the mypow function

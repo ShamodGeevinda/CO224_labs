@@ -20,8 +20,8 @@
 mypow:
 
 		@ stack handeling
-		sub sp, sp, #16
-		str lr,[sp, #12]
+		sub sp, sp, #12
+		@ no need to use str, lr because this is not resursive fn
 		str r4,[sp, #8]
 		str r5,[sp, #4]
 		str r6,[sp, #0]
@@ -39,15 +39,15 @@ loop:
 		b loop
 
 exit:
-		mov r0, r6   @ r0 = r6
+			mov r0, r6   @ r0 = r6
 
-		@ restore value
-		ldr lr, [sp, #12]
-		ldr r4, [sp, #8]
-		ldr r5, [sp, #4]
-		ldr r6, [sp, #0]
-		add sp, sp, #16
-		mov pc, lr   @ returning from the function
+			@ restore value
+			
+			ldr r4, [sp, #8]
+			ldr r5, [sp, #4]
+			ldr r6, [sp, #0]
+			add sp, sp, #12
+			mov pc, lr   @ returning from the function
 
 
 @ ---------------------	
