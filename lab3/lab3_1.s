@@ -19,35 +19,35 @@
 @ ---------------------	
 mypow:
 
-@ stack handeling
-sub sp, sp, #16
-str lr,[sp, #12]
-str r4,[sp, #8]
-str r5,[sp, #4]
-str r6,[sp, #0]
+		@ stack handeling
+		sub sp, sp, #16
+		str lr,[sp, #12]
+		str r4,[sp, #8]
+		str r5,[sp, #4]
+		str r6,[sp, #0]
 
-mov r4, #1 @ i = 1
-mov r5, #1 @ val = 1 
-mov r6, #1 @ r6 = 1
+		mov r4, #1 @ i = 1
+		mov r5, #1 @ val = 1 
+		mov r6, #1 @ r6 = 1
 
 loop:
-cmp r4, r1  
-bgt exit    @ i>n
-mul r6, r5, r0  @ r6 = r5 * x
-mov r5, r6      @ r5 = r6
-add r4, r4, #1  @ i++
-b loop
+		cmp r4, r1  
+		bgt exit    @ i>n
+		mul r6, r5, r0  @ r6 = r5 * x
+		mov r5, r6      @ r5 = r6
+		add r4, r4, #1  @ i++
+		b loop
 
 exit:
-mov r0, r6   @ r0 = r6
+		mov r0, r6   @ r0 = r6
 
-@ restore value
-ldr lr, [sp, #12]
-ldr r4, [sp, #8]
-ldr r5, [sp, #4]
-ldr r6, [sp, #0]
-add sp, sp, #16
-mov pc, lr   @ returning from the function
+		@ restore value
+		ldr lr, [sp, #12]
+		ldr r4, [sp, #8]
+		ldr r5, [sp, #4]
+		ldr r6, [sp, #0]
+		add sp, sp, #16
+		mov pc, lr   @ returning from the function
 
 
 @ ---------------------	
