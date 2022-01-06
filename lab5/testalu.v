@@ -8,13 +8,27 @@ module testbench ;
 
 Alu alu(RESULT, DATA1, DATA2, SELECT);
 initial begin 
-    DATA1 = 'b00000010;
-    DATA2 = 'b00001010; 
-    DATA1=  10;
-    DATA1 = 12;
+    $dumpfile("wavedata.vcd");
+    $dumpvars(0, testbench);
 
-//SELECT = 'b00000001;
+    DATA1=  17;
+    DATA2 = 15;
+
+
 SELECT = 0;
-#5 $display("DATA1= %d, DATA2= %d, SELECT= %d, RESULT =%d", DATA1, DATA2, SELECT, RESULT);
-  end  
+#5       $display("DATA1= %d, DATA2= %d, SELECT= %d, RESULT =%d", DATA1, DATA2, SELECT, RESULT);
+
+SELECT = 1;
+#5      $display("DATA1= %d, DATA2= %d, SELECT= %d, RESULT =%d", DATA1, DATA2, SELECT, RESULT);
+
+SELECT = 2;
+#5      $display("DATA1= %d, DATA2= %d, SELECT= %d, RESULT =%d", DATA1, DATA2, SELECT, RESULT);
+
+SELECT = 3;
+#5      $display("DATA1= %d, DATA2= %d, SELECT= %d, RESULT =%d", DATA1, DATA2, SELECT, RESULT);
+
+
+$finish;
+end
+   
 endmodule

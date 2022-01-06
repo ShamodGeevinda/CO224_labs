@@ -1,0 +1,93 @@
+$date
+	Thu Jan  6 11:30:57 2022
+$end
+$version
+	Icarus Verilog
+$end
+$timescale
+	1s
+$end
+$scope module testbench $end
+$var wire 8 ! RESULT [7:0] $end
+$var reg 8 " DATA1 [7:0] $end
+$var reg 8 # DATA2 [7:0] $end
+$var reg 3 $ SELECT [2:0] $end
+$scope module alu $end
+$var wire 8 % DATA1 [7:0] $end
+$var wire 8 & DATA2 [7:0] $end
+$var wire 3 ' SELECT [2:0] $end
+$var wire 8 ( OR_OUT [7:0] $end
+$var wire 8 ) FORWARD_OUT [7:0] $end
+$var wire 8 * AND_OUT [7:0] $end
+$var wire 8 + ADD_OUT [7:0] $end
+$var reg 8 , RESULT [7:0] $end
+$scope module add1 $end
+$var wire 8 - DATA1 [7:0] $end
+$var wire 8 . DATA2 [7:0] $end
+$var wire 8 / ADD_OUT [7:0] $end
+$upscope $end
+$scope module and1 $end
+$var wire 8 0 AND_OUT [7:0] $end
+$var wire 8 1 DATA1 [7:0] $end
+$var wire 8 2 DATA2 [7:0] $end
+$upscope $end
+$scope module fwd1 $end
+$var wire 8 3 DATA2 [7:0] $end
+$var wire 8 4 FORWARD_OUT [7:0] $end
+$upscope $end
+$scope module or1 $end
+$var wire 8 5 DATA1 [7:0] $end
+$var wire 8 6 DATA2 [7:0] $end
+$var wire 8 7 OR_OUT [7:0] $end
+$upscope $end
+$upscope $end
+$upscope $end
+$enddefinitions $end
+#0
+$dumpvars
+b11111 7
+b1111 6
+b10001 5
+b1111 4
+b1111 3
+b1111 2
+b10001 1
+b1 0
+b100000 /
+b1111 .
+b10001 -
+bx ,
+b100000 +
+b1 *
+b1111 )
+b11111 (
+b0 '
+b1111 &
+b10001 %
+b0 $
+b1111 #
+b10001 "
+bx !
+$end
+#1
+b1111 !
+b1111 ,
+#5
+b1 $
+b1 '
+#7
+b100000 !
+b100000 ,
+#10
+b10 $
+b10 '
+#11
+b1 !
+b1 ,
+#15
+b11 $
+b11 '
+#16
+b11111 !
+b11111 ,
+#20
