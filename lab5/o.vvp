@@ -1,0 +1,86 @@
+#! /usr/bin/vvp
+:ivl_version "10.3 (stable)";
+:ivl_delay_selection "TYPICAL";
+:vpi_time_precision + 0;
+:vpi_module "system";
+:vpi_module "vhdl_sys";
+:vpi_module "v2005_math";
+:vpi_module "va_math";
+S_0x7ffff28576f0 .scope module, "testbench" "testbench" 2 3;
+ .timescale 0 0;
+v0x7ffff287da60_0 .var "DATA1", 7 0;
+v0x7ffff287db90_0 .var "DATA2", 7 0;
+v0x7ffff287dca0_0 .net "RESULT", 7 0, v0x7ffff287d810_0;  1 drivers
+v0x7ffff287dd40_0 .var "SELECT", 2 0;
+S_0x7ffff2867ce0 .scope module, "alu" "Alu" 2 9, 3 1 0, S_0x7ffff28576f0;
+ .timescale 0 0;
+    .port_info 0 /OUTPUT 8 "RESULT"
+    .port_info 1 /INPUT 8 "DATA1"
+    .port_info 2 /INPUT 8 "DATA2"
+    .port_info 3 /INPUT 3 "SELECT"
+v0x7ffff287d5b0_0 .net "ADD_OUT", 7 0, L_0x7ffff287dde0;  1 drivers
+v0x7ffff287d670_0 .net "DATA1", 7 0, v0x7ffff287da60_0;  1 drivers
+v0x7ffff287d710_0 .net "DATA2", 7 0, v0x7ffff287db90_0;  1 drivers
+v0x7ffff287d810_0 .var "RESULT", 7 0;
+v0x7ffff287d8b0_0 .net "SELECT", 2 0, v0x7ffff287dd40_0;  1 drivers
+E_0x7ffff286b2f0 .event edge, v0x7ffff287d8b0_0, v0x7ffff286b660_0;
+S_0x7ffff2867f20 .scope module, "add" "Add" 3 7, 3 25 0, S_0x7ffff2867ce0;
+ .timescale 0 0;
+    .port_info 0 /OUTPUT 8 "ADD_OUT"
+    .port_info 1 /INPUT 8 "DATA1"
+    .port_info 2 /INPUT 8 "DATA2"
+v0x7ffff286b660_0 .net "ADD_OUT", 7 0, L_0x7ffff287dde0;  alias, 1 drivers
+v0x7ffff287d390_0 .net "DATA1", 7 0, v0x7ffff287da60_0;  alias, 1 drivers
+v0x7ffff287d470_0 .net "DATA2", 7 0, v0x7ffff287db90_0;  alias, 1 drivers
+L_0x7ffff287dde0 .arith/sum 8, v0x7ffff287da60_0, v0x7ffff287db90_0;
+    .scope S_0x7ffff2867ce0;
+T_0 ;
+    %wait E_0x7ffff286b2f0;
+    %load/vec4 v0x7ffff287d8b0_0;
+    %dup/vec4;
+    %pushi/vec4 0, 0, 3;
+    %cmp/u;
+    %jmp/1 T_0.0, 6;
+    %dup/vec4;
+    %pushi/vec4 1, 0, 3;
+    %cmp/u;
+    %jmp/1 T_0.1, 6;
+    %pushi/vec4 0, 0, 8;
+    %store/vec4 v0x7ffff287d810_0, 0, 8;
+    %jmp T_0.3;
+T_0.0 ;
+    %delay 1, 0;
+    %pushi/vec4 5, 0, 8;
+    %store/vec4 v0x7ffff287d810_0, 0, 8;
+    %jmp T_0.3;
+T_0.1 ;
+    %delay 1, 0;
+    %load/vec4 v0x7ffff287d5b0_0;
+    %store/vec4 v0x7ffff287d810_0, 0, 8;
+    %jmp T_0.3;
+T_0.3 ;
+    %pop/vec4 1;
+    %jmp T_0;
+    .thread T_0, $push;
+    .scope S_0x7ffff28576f0;
+T_1 ;
+    %pushi/vec4 2, 0, 8;
+    %store/vec4 v0x7ffff287da60_0, 0, 8;
+    %pushi/vec4 10, 0, 8;
+    %store/vec4 v0x7ffff287db90_0, 0, 8;
+    %pushi/vec4 10, 0, 8;
+    %store/vec4 v0x7ffff287da60_0, 0, 8;
+    %pushi/vec4 12, 0, 8;
+    %store/vec4 v0x7ffff287da60_0, 0, 8;
+    %pushi/vec4 0, 0, 3;
+    %store/vec4 v0x7ffff287dd40_0, 0, 3;
+    %delay 5, 0;
+    %vpi_call 2 18 "$display", "DATA1= %d, DATA2= %d, SELECT= %d, RESULT =%d", v0x7ffff287da60_0, v0x7ffff287db90_0, v0x7ffff287dd40_0, v0x7ffff287dca0_0 {0 0 0};
+    %end;
+    .thread T_1;
+# The file index is used to find the file name in the following table.
+:file_names 4;
+    "N/A";
+    "<interactive>";
+    "testalu.v";
+    "./alu.v";
