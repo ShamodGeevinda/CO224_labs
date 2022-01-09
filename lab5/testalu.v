@@ -12,7 +12,7 @@ initial begin
     $dumpvars(0, testbench);
 
     DATA1=  17;
-    DATA2 = 15;
+    DATA2 = 5;
 
 
 SELECT = 0;
