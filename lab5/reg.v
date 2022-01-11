@@ -5,7 +5,7 @@
  *
  */
 
-module Eight_bit_reg(IN, OUT1, OUT2, INADDRESS, OUT1ADDRESS, OUT2ADDRESS, WRITE, CLK, RESET);
+module reg_file(IN, OUT1, OUT2, INADDRESS, OUT1ADDRESS, OUT2ADDRESS, WRITE, CLK, RESET);
 
 	input WRITE, CLK, RESET;				// 1-bit inputs
 	input [2:0] INADDRESS, OUT1ADDRESS, OUT2ADDRESS;	// 3-bits inputs

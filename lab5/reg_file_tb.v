@@ -10,7 +10,7 @@ module reg_file_tb;
     reg CLK, RESET, WRITEENABLE; 
     wire [7:0] REGOUT1, REGOUT2;
     
-    Eight_bit_reg myregfile(WRITEDATA, REGOUT1, REGOUT2, WRITEREG, READREG1, READREG2, WRITEENABLE, CLK, RESET);
+    reg_file myregfile(WRITEDATA, REGOUT1, REGOUT2, WRITEREG, READREG1, READREG2, WRITEENABLE, CLK, RESET);
        
     initial
     begin
