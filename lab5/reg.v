@@ -13,11 +13,10 @@ module reg_file(IN, OUT1, OUT2, INADDRESS, OUT1ADDRESS, OUT2ADDRESS, WRITE, CLK,
 
 	output [7:0] OUT1, OUT2;				// 8-bits outputs
 
-
 	reg [7:0] registers[7:0];		// this represents the 8-bits(1 byte)  8 registers ( 8x8 registers )
 
 
-	integer regNum ;			// represet the register number for the RESET task
+	// integer regNum ;			// represet the register number for the RESET task
 
 	// assign given addresses values to OUT1 and OUT2 respectively. this is asynchronous therefore, we use blocking statement with delay 2 units
 	assign #2 OUT1 = registers[OUT1ADDRESS];	
@@ -29,18 +28,12 @@ module reg_file(IN, OUT1, OUT2, INADDRESS, OUT1ADDRESS, OUT2ADDRESS, WRITE, CLK,
 	begin 
 		// writting happens when WRITE is high. 
 		// if statement includes only one row so don't use begin end keywords
-		if ( WRITE )	
+		if (RESET == 0 && WRITE ==1 )	
 			
 			// this is synchronous therefore, we use non-blocking statement with delay 1 unit.
 			// write in to given register
 			#1 registers[INADDRESS] <= IN ;
 
-
-	
-
-	// reset all the registers synchronously at the positive edge of the clock
-	
-	
 		
 		// reset all the registers when RESET is high. 
 		if ( RESET ) #1

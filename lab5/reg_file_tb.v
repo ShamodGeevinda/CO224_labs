@@ -1,7 +1,6 @@
 // Computer Architecture (CO224) - Lab 05
-// Design: Register File Testbench of Simple Processor
+// Design: Register File of Simple Processor
 // Author: Kisaru Liyanage
-// Date	: 21-October-2020
 `include "reg.v"
 module reg_file_tb;
     
@@ -24,40 +23,40 @@ module reg_file_tb;
         RESET = 1'b0;
         WRITEENABLE = 1'b0;
         
-        #5
+        #4
         RESET = 1'b1;
         READREG1 = 3'd0;
         READREG2 = 3'd4;
         
-        #7
+        #6
         RESET = 1'b0;
         
-        #3
+        #2
         WRITEREG = 3'd2;
         WRITEDATA = 8'd95;
         WRITEENABLE = 1'b1;
         
-        #9
+        #7
         WRITEENABLE = 1'b0;
         
         #1
         READREG1 = 3'd2;
         
-        #9
+        #7
         WRITEREG = 3'd1;
         WRITEDATA = 8'd28;
         WRITEENABLE = 1'b1;
         READREG1 = 3'd1;
         
-        #10
+        #8
         WRITEENABLE = 1'b0;
         
-        #10
+        #8
         WRITEREG = 3'd4;
         WRITEDATA = 8'd6;
         WRITEENABLE = 1'b1;
         
-        #10
+        #8
         WRITEDATA = 8'd15;
         WRITEENABLE = 1'b1;
         
@@ -65,7 +64,7 @@ module reg_file_tb;
         WRITEENABLE = 1'b0;
         
         #6
-        WRITEREG = 3'd1;
+        WRITEREG = -3'd1;
         WRITEDATA = 8'd50;
         WRITEENABLE = 1'b1;
         
@@ -78,7 +77,7 @@ module reg_file_tb;
     
     // clock signal generation
     always
-        #5 CLK = ~CLK;
+        #4 CLK = ~CLK;
         
 
 endmodule

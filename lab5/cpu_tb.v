@@ -2,10 +2,12 @@
 // Design: Testbench of Integrated CPU of Simple Processor
 // Author: Isuru Nawinne
 
+`include "cpu.v"
+
 module cpu_tb;
 
     reg CLK, RESET;
-    wire [31:0] PC;
+    wire [31:0] PC ;
     wire [31:0] INSTRUCTION;
     
     /* 
@@ -15,12 +17,14 @@ module cpu_tb;
     */
     
     // TODO: Initialize an array of registers (8x1024) named 'instr_mem' to be used as instruction memory
-    reg[1023:0] instr_mem [7:0]; // 8191
+	
+	reg [7:0] instr_mem [1023:0]; 	// instruction array
+    
     // TODO: Create combinational logic to support CPU instruction fetching, given the Program Counter(PC) value 
     //       (make sure you include the delay for instruction fetching here)
     
-
-    
+	assign #2 INSTRUCTION = {instr_mem[PC+3],instr_mem[PC+2],instr_mem[PC+1],instr_mem[PC]};	// fetching instruction with time delay
+	
     initial
     begin
         // Initialize instruction memory with the set of instructions you need execute on CPU
@@ -29,7 +33,7 @@ module cpu_tb;
         //{instr_mem[10'd3], instr_mem[10'd2], instr_mem[10'd1], instr_mem[10'd0]} = 32'b00000000000001000000000000000101;
         //{instr_mem[10'd7], instr_mem[10'd6], instr_mem[10'd5], instr_mem[10'd4]} = 32'b00000000000000100000000000001001;
         //{instr_mem[10'd11], instr_mem[10'd10], instr_mem[10'd9], instr_mem[10'd8]} = 32'b00000010000001100000010000000010;
-        
+		
         // METHOD 2: loading instr_mem content from instr_mem.mem file
         $readmemb("instr_mem.mem", instr_mem);
     end
@@ -52,7 +56,18 @@ module cpu_tb;
         RESET = 1'b0;
         
         // TODO: Reset the CPU (by giving a pulse to RESET signal) to start the program execution
-        
+        RESET = 1'b1;
+        #5
+        RESET = 1'b0;
+
+        // reset check
+        //#20
+        //RESET = 1'b1;
+        //#5
+        //RESET = 1'b0;
+        //
+		
+		
         // finish simulation after some time
         #500
         $finish;
