@@ -7,7 +7,7 @@ output reg [7:0] RESULT;
 wire [7:0] ADD_OUT, FORWARD_OUT, AND_OUT, OR_OUT;
 
 
-// module initializw
+// module initialize
 Forward fwd1(FORWARD_OUT, DATA2 );
 Add add1(ADD_OUT, DATA1, DATA2 );
 And and1(AND_OUT, DATA1, DATA2 );

@@ -1,5 +1,5 @@
 $date
-	Sun Jan 23 08:17:39 2022
+	Wed Jan 26 09:11:06 2022
 $end
 $version
 	Icarus Verilog
@@ -72,7 +72,7 @@ $var wire 1 - SELECT $end
 $var wire 8 K INPUT1 [7:0] $end
 $var reg 8 L OUTPUT [7:0] $end
 $upscope $end
-$scope module mucu $end
+$scope module mycu $end
 $var wire 8 M OPCODE [7:0] $end
 $var reg 3 N ALUOP [2:0] $end
 $var reg 1 - MUXIMM $end
@@ -137,9 +137,9 @@ bx 7
 bx 6
 bx 5
 bx 4
-b0 3
+bx 3
 b100 2
-b0 1
+bx 1
 bx 0
 bx /
 bx .
@@ -155,12 +155,18 @@ bx %
 1$
 0#
 bx "
-b0 !
+bx !
 $end
-#1
+#4
+b0 !
+b0 1
+b0 3
+1#
+#5
 b100 ,
 b100 4
-#2
+0$
+#6
 b101 .
 b101 8
 b101 =
@@ -175,7 +181,7 @@ b101 T
 b101 J
 b1000000000000000101 "
 b1000000000000000101 %
-#3
+#7
 b101 /
 b101 <
 b101 O
@@ -191,34 +197,30 @@ b0 N
 1-
 b101 7
 b101 C
-#4
-1#
-#5
-0$
-#7
+#8
 b0 )
 b0 K
 b0 W
-b0 *
-b0 I
-b0 S
-b0 U
 b0 +
 b0 9
 b0 >
 b0 B
 b0 G
 b0 Q
-#8
-b0 '
-b0 H
-b0 V
+b0 *
+b0 I
+b0 S
+b0 U
+0#
+#9
 b101 6
 b101 E
 b0 :
 b0 @
-0#
-#9
+b0 '
+b0 H
+b0 V
+#10
 b101 ;
 b101 ?
 #12
@@ -355,6 +357,12 @@ b110 J
 b1000000000000000000000110 "
 b1000000000000000000000110 %
 #32
+b1001 /
+b1001 <
+b1001 O
+b0 0
+b0 5
+b0 N
 0#
 #33
 b1110 .
@@ -378,6 +386,9 @@ b1110 I
 b1110 S
 b1110 U
 #34
+b1110 /
+b1110 <
+b1110 O
 b1110 7
 b1110 C
 b1110 6
@@ -417,9 +428,6 @@ b1 A
 b1 D
 b1 F
 b1 L
-b0 0
-b0 5
-b0 N
 1-
 b1110 :
 b1110 @
@@ -523,12 +531,9 @@ b1010 Q
 bx "
 bx %
 #56
-b1011 6
-b1011 E
-b0 :
-b0 @
-0#
-#57
+b11111111 )
+b11111111 K
+b11111111 W
 bx .
 bx 8
 bx =
@@ -536,12 +541,27 @@ bx A
 bx D
 bx F
 bx L
-bx )
-bx K
-bx W
-b1011 /
-b1011 <
-b1011 O
+b0 /
+b0 <
+b0 O
+0&
+x(
+bx 0
+bx 5
+bx N
+x-
+b1011 6
+b1011 E
+b0 :
+b0 @
+0#
+#57
+bx1x1x 6
+bx1x1x E
+b0x0x0 :
+b0x0x0 @
+bx 7
+bx C
 bx +
 bx 9
 bx >
@@ -552,11 +572,10 @@ bx *
 bx I
 bx S
 bx U
-b1011 ;
-b1011 ?
 #58
-bx 7
-bx C
+bx )
+bx K
+bx W
 bx 6
 bx E
 bx :
@@ -564,10 +583,6 @@ bx @
 bx '
 bx H
 bx V
-#59
-bx /
-bx <
-bx O
 bx ;
 bx ?
 #60

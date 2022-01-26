@@ -56,23 +56,17 @@ module cpu_tb;
         RESET = 1'b0;
         
         // TODO: Reset the CPU (by giving a pulse to RESET signal) to start the program execution
-        RESET = 1'b1;
-        #5
-        RESET = 1'b0;
+        
+	    RESET = 1'b1;
+	    #5
 
-        // reset check
-        //#20
-        //RESET = 1'b1;
-        //#5
-        //RESET = 1'b0;
-        //
-		
-		
+	    RESET = 1'b0;
         // finish simulation after some time
         #500
         $finish;
         
     end
+
     
     // clock signal generation
     always
