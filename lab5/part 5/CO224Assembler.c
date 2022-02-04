@@ -54,6 +54,7 @@ int main( int argc, char *argv[] )
 	char *op_lwi 	= "00001001";
 	char *op_swd 	= "00001010";
 	char *op_swi 	= "00001011";
+	char *op_bne 	= "00010000";
 	/************************************************************************/
 	
 	const char delim[] = " ";

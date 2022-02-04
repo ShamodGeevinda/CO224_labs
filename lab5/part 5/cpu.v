@@ -19,7 +19,7 @@ module cpu (PC, INSTRUCTION, CLK, RESET );
     output reg [31:0] PC ;
     
     // wires for internal implementation
-    wire SUB_SELECT, IMM_SELECT, WRITE_ENABLE, ZERO,BRANCH,JUMP, AND_OUT, OR_OUT;
+    wire SUB_SELECT, IMM_SELECT, WRITE_ENABLE, ZERO,BRANCH,JUMP,BNE, AND_OUT, OR_OUT, AND_OUT2;
     wire [7:0] ALU_OUT, REGOUT1, REGOUT2, TWOS, SUB_RESULT, IMM_RESULT;
     wire [2:0] ALUOP;
     wire [31:0] NEXTPC,B_MUX_OUT, ADDR_OUT, NEXTPC2;
@@ -30,7 +30,7 @@ module cpu (PC, INSTRUCTION, CLK, RESET );
         //  rs = INSTRUCTION[7:0];       // operand 2 or immediate
 
     //  initiating the modules    
-    cu mucu(ALUOP, WRITE_ENABLE,SUB_SELECT, IMM_SELECT ,BRANCH,JUMP, INSTRUCTION[31:24] );
+    cu mucu(ALUOP, WRITE_ENABLE,SUB_SELECT, IMM_SELECT ,BRANCH,JUMP,BNE, INSTRUCTION[31:24] );
     reg_file myregfile(ALU_OUT, REGOUT1, REGOUT2, INSTRUCTION[18:16], INSTRUCTION[10:8],INSTRUCTION[2:0], WRITE_ENABLE, CLK, RESET);
     twos_comp for_sub(TWOS, REGOUT2);
     mux select2s(SUB_RESULT, REGOUT2, TWOS, SUB_SELECT);
@@ -39,10 +39,11 @@ module cpu (PC, INSTRUCTION, CLK, RESET );
     addr adr(NEXTPC, PC, 'd4);
 
     andgate a1(AND_OUT, BRANCH, ZERO);
-    or or1(OR_OUT,AND_OUT,JUMP);
+    andgate a2(AND_OUT2, BNE, ~ZERO);
+    or or1(OR_OUT,AND_OUT, AND_OUT2, JUMP);
     newaddr na(ADDR_OUT, NEXTPC, INSTRUCTION[23:16]);
     //mux32 branch_mux(B_MUX_OUT, NEXTPC, ADDR_OUT , AND_OUT );
-    mux32 jump_mux (NEXTPC2  ,NEXTPC, ADDR_OUT,JUMP);
+    mux32 jump_mux (NEXTPC2 ,NEXTPC, ADDR_OUT,OR_OUT);
 
     
     // pc update with clock
@@ -75,9 +76,9 @@ module twos_comp (OUTPUT, INPUT);
 endmodule
 
 // control unit
-module   cu(ALUOP, WRITEENABLE, MUXSUB, MUXIMM,BRANCH,JUMP, OPCODE);
+module   cu(ALUOP, WRITEENABLE, MUXSUB, MUXIMM,BRANCH,JUMP,BNE, OPCODE);
     input [7:0] OPCODE;
-    output reg WRITEENABLE, MUXSUB, MUXIMM, BRANCH, JUMP;
+    output reg WRITEENABLE, MUXSUB, MUXIMM, BRANCH, JUMP, BNE;
     output reg [2:0] ALUOP;
 
     always @(*) begin
@@ -91,6 +92,7 @@ module   cu(ALUOP, WRITEENABLE, MUXSUB, MUXIMM,BRANCH,JUMP, OPCODE);
                 WRITEENABLE = 'b1;
                 BRANCH = 'b0;
                 JUMP = 'b0;
+                BNE = 'b0;
 
             end 
 
@@ -101,6 +103,8 @@ module   cu(ALUOP, WRITEENABLE, MUXSUB, MUXIMM,BRANCH,JUMP, OPCODE);
                 WRITEENABLE = 'b1;
                 BRANCH = 'b0;
                 JUMP = 'b0;
+                BNE = 'b0;
+
             end
 
             'b00000010: begin // add
@@ -110,6 +114,7 @@ module   cu(ALUOP, WRITEENABLE, MUXSUB, MUXIMM,BRANCH,JUMP, OPCODE);
                 WRITEENABLE = 'b1;
                 BRANCH = 'b0;
                 JUMP = 'b0;
+                BNE = 'b0;
             end
                 
             'b00000011: begin // sub
@@ -119,6 +124,7 @@ module   cu(ALUOP, WRITEENABLE, MUXSUB, MUXIMM,BRANCH,JUMP, OPCODE);
                 WRITEENABLE = 'b1;
                 BRANCH = 'b0;
                 JUMP = 'b0;
+                BNE = 'b0;
             end
 
             'b00000100: begin // and
@@ -128,6 +134,7 @@ module   cu(ALUOP, WRITEENABLE, MUXSUB, MUXIMM,BRANCH,JUMP, OPCODE);
                 WRITEENABLE = 'b1;
                 BRANCH = 'b0;
                 JUMP = 'b0;
+                BNE = 'b0;
             end
 
             'b00000101: begin // or
@@ -137,6 +144,7 @@ module   cu(ALUOP, WRITEENABLE, MUXSUB, MUXIMM,BRANCH,JUMP, OPCODE);
                 WRITEENABLE = 'b1;
                 BRANCH = 'b0;
                 JUMP = 'b0;
+                BNE = 'b0;
             end
             
             'b00000110: begin // jump
@@ -146,15 +154,27 @@ module   cu(ALUOP, WRITEENABLE, MUXSUB, MUXIMM,BRANCH,JUMP, OPCODE);
                 WRITEENABLE = 'b0;
                 BRANCH = 'b0;
                 JUMP = 'b1;
+                BNE = 'b0;
             end
 
-            'b00000111: begin // branch
+            'b00000111: begin // branch beq
                 MUXIMM = 'b0 ;
-                ALUOP = 3'b000; // addd
+                ALUOP = 3'b001; // add
                 MUXSUB = 'b1;   // sub 
                 WRITEENABLE = 'b0;
                 BRANCH = 'b1;
                 JUMP = 'b0;
+                BNE = 'b0;
+            end
+
+            'b00010000: begin // branch bne
+                MUXIMM = 'b0 ;
+                ALUOP = 3'b001; // add
+                MUXSUB = 'b1;   // sub 
+                WRITEENABLE = 'b0;
+                BRANCH = 'b0;
+                JUMP = 'b0;
+                BNE = 'b1;
             end
 
             default: begin
@@ -164,6 +184,7 @@ module   cu(ALUOP, WRITEENABLE, MUXSUB, MUXIMM,BRANCH,JUMP, OPCODE);
                 WRITEENABLE = 'b0;
                 BRANCH = 'bx;
                 JUMP = 'bx;
+                BNE = 'bx;
             end
                 
         endcase   
