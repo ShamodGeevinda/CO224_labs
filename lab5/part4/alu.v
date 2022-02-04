@@ -15,10 +15,13 @@ Add add1(ADD_OUT, DATA1, DATA2 );
 And and1(AND_OUT, DATA1, DATA2 );
 Or or1(OR_OUT, DATA1, DATA2 );
 
+
+assign ZERO = ~(RESULT[0]|RESULT[1]|RESULT[2]|RESULT[3]|RESULT[4]|RESULT[5]|RESULT[6]|RESULT[7]);
+
+
 always @(*) begin //always @(*) begin
     
-    if ((DATA1-DATA2)==0) ZERO = 1;
-    else ZERO = 0;
+    
     
       
     case (SELECT)
@@ -34,6 +37,7 @@ always @(*) begin //always @(*) begin
             RESULT = 'b00000000;
 
     endcase
+
 end
 
   

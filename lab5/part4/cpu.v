@@ -12,11 +12,13 @@
 	// beq	= "00000111";
 
 module cpu (PC, INSTRUCTION, CLK, RESET );
+
+    // port declaration
     input CLK, RESET;
     input [31:0] INSTRUCTION;
     output reg [31:0] PC ;
     
-
+    // wires for internal implementation
     wire SUB_SELECT, IMM_SELECT, WRITE_ENABLE, ZERO,BRANCH,JUMP, AND_OUT;
     wire [7:0] ALU_OUT, REGOUT1, REGOUT2, TWOS, SUB_RESULT, IMM_RESULT;
     wire [2:0] ALUOP;
@@ -26,6 +28,8 @@ module cpu (PC, INSTRUCTION, CLK, RESET );
         //  rd = INSTRUCTION[23:16];     // destination
         //  rt = INSTRUCTION[15:8];      // operand 1
         //  rs = INSTRUCTION[7:0];       // operand 2 or immediate
+
+    //  initiating the modules    
     cu mucu(ALUOP, WRITE_ENABLE,SUB_SELECT, IMM_SELECT ,BRANCH,JUMP, INSTRUCTION[31:24] );
     reg_file myregfile(ALU_OUT, REGOUT1, REGOUT2, INSTRUCTION[18:16], INSTRUCTION[10:8],INSTRUCTION[2:0], WRITE_ENABLE, CLK, RESET);
     twos_comp for_sub(TWOS, REGOUT2);
@@ -40,7 +44,7 @@ module cpu (PC, INSTRUCTION, CLK, RESET );
     mux32 jump_mux (NEXTPC2  ,B_MUX_OUT, ADDR_OUT,JUMP);
 
     
-
+    // pc update with clock
     always @(posedge CLK) begin
         if(RESET) PC = 0;
         else #1 PC = NEXTPC2;
@@ -48,27 +52,28 @@ module cpu (PC, INSTRUCTION, CLK, RESET );
 
 endmodule
 
-
+// 2 into 1 mux
 module mux (OUTPUT, INPUT1, INPUT2, SELECT);
     input SELECT;
     input[7:0] INPUT1, INPUT2;
     output reg [7:0] OUTPUT;
     always @(*) begin
         if (SELECT==0) OUTPUT = INPUT1;
-        else OUTPUT = INPUT2;
+        else if (SELECT == 1) OUTPUT = INPUT2;
+        // else what should do
     end
     
 endmodule
 
-
+// 2s complement generator
 module twos_comp (OUTPUT, INPUT);
     input[7:0] INPUT;
     output[7:0] OUTPUT;
     assign  #1 OUTPUT = ~INPUT+1;
-    
-    
+       
 endmodule
 
+// control unit
 module   cu(ALUOP, WRITEENABLE, MUXSUB, MUXIMM,BRANCH,JUMP, OPCODE);
     input [7:0] OPCODE;
     output reg WRITEENABLE, MUXSUB, MUXIMM, BRANCH, JUMP;
@@ -143,9 +148,9 @@ module   cu(ALUOP, WRITEENABLE, MUXSUB, MUXIMM,BRANCH,JUMP, OPCODE);
             end
 
             'b00000111: begin // branch
-                MUXIMM = 'bx ;
-                ALUOP = 3'bxxx;
-                MUXSUB = 'bx;
+                MUXIMM = 'b0 ;
+                ALUOP = 3'b000; // addd
+                MUXSUB = 'b1;   // sub 
                 WRITEENABLE = 'b0;
                 BRANCH = 'b1;
                 JUMP = 'b0;
@@ -164,7 +169,7 @@ module   cu(ALUOP, WRITEENABLE, MUXSUB, MUXIMM,BRANCH,JUMP, OPCODE);
     end
 endmodule
 
-
+// adder
 module addr (NEXTPC, PC, FOUR);
 
 input [31:0] PC, FOUR ;
@@ -175,6 +180,7 @@ assign  #1 NEXTPC =  PC + FOUR;
     
 endmodule
 
+// adder
 module newaddr (NEW_ADDR, CURRENT_ADDR, OFFSET);
 
 input[7:0] OFFSET;
@@ -190,13 +196,14 @@ assign  #2 NEW_ADDR =  SHIFTED + CURRENT_ADDR ;
     
 endmodule
 
-
+// AND GATE
 module andgate (OUTPUT, INPUT1, INPUT2);
     input INPUT1, INPUT2;
     output OUTPUT;
     assign OUTPUT = INPUT1 & INPUT2;
 endmodule
 
+// 32 bit 2 into 1 mux
 module mux32 (OUTPUT, INPUT1, INPUT2, SELECT);
     input SELECT;
     input[31:0] INPUT1, INPUT2;
