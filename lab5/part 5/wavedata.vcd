@@ -1,0 +1,193 @@
+$date
+	Sun Feb  6 11:59:55 2022
+$end
+$version
+	Icarus Verilog
+$end
+$timescale
+	1s
+$end
+$scope module testbench $end
+$var wire 1 ! zero $end
+$var wire 8 " RESULT [7:0] $end
+$var reg 8 # DATA1 [7:0] $end
+$var reg 8 $ DATA2 [7:0] $end
+$var reg 3 % SELECT [2:0] $end
+$scope module alu $end
+$var wire 8 & DATA1 [7:0] $end
+$var wire 8 ' DATA2 [7:0] $end
+$var wire 3 ( SELECT [2:0] $end
+$var wire 1 ! ZERO $end
+$var wire 8 ) SRL_OUT [7:0] $end
+$var wire 8 * SRA_OUT [7:0] $end
+$var wire 8 + SLL_OUT [7:0] $end
+$var wire 8 , ROR_OUT [7:0] $end
+$var wire 8 - OR_OUT [7:0] $end
+$var wire 8 . FORWARD_OUT [7:0] $end
+$var wire 8 / AND_OUT [7:0] $end
+$var wire 8 0 ADD_OUT [7:0] $end
+$var reg 8 1 RESULT [7:0] $end
+$scope module add1 $end
+$var wire 8 2 DATA1 [7:0] $end
+$var wire 8 3 DATA2 [7:0] $end
+$var wire 8 4 ADD_OUT [7:0] $end
+$upscope $end
+$scope module and1 $end
+$var wire 8 5 AND_OUT [7:0] $end
+$var wire 8 6 DATA1 [7:0] $end
+$var wire 8 7 DATA2 [7:0] $end
+$upscope $end
+$scope module fwd1 $end
+$var wire 8 8 DATA2 [7:0] $end
+$var wire 8 9 FORWARD_OUT [7:0] $end
+$upscope $end
+$scope module or1 $end
+$var wire 8 : DATA1 [7:0] $end
+$var wire 8 ; DATA2 [7:0] $end
+$var wire 8 < OR_OUT [7:0] $end
+$upscope $end
+$scope module ror1 $end
+$var wire 8 = DATA1 [7:0] $end
+$var wire 8 > DATA2 [7:0] $end
+$var wire 8 ? ROR_OUT [7:0] $end
+$var reg 8 @ shifted [7:0] $end
+$var reg 1 A temp $end
+$var integer 32 B i [31:0] $end
+$var integer 32 C j [31:0] $end
+$upscope $end
+$scope module slll1 $end
+$var wire 8 D DATA1 [7:0] $end
+$var wire 8 E DATA2 [7:0] $end
+$var wire 8 F SLL_OUT [7:0] $end
+$var reg 8 G shifted [7:0] $end
+$var integer 32 H i [31:0] $end
+$var integer 32 I j [31:0] $end
+$upscope $end
+$scope module sra1 $end
+$var wire 8 J DATA1 [7:0] $end
+$var wire 8 K DATA2 [7:0] $end
+$var wire 8 L SRA_OUT [7:0] $end
+$var reg 8 M shifted [7:0] $end
+$var integer 32 N i [31:0] $end
+$var integer 32 O j [31:0] $end
+$upscope $end
+$scope module srl1 $end
+$var wire 8 P DATA1 [7:0] $end
+$var wire 8 Q DATA2 [7:0] $end
+$var wire 8 R SRL_OUT [7:0] $end
+$var reg 8 S shifted [7:0] $end
+$var integer 32 T i [31:0] $end
+$var integer 32 U j [31:0] $end
+$upscope $end
+$upscope $end
+$upscope $end
+$enddefinitions $end
+#0
+$dumpvars
+bx U
+bx T
+bx S
+bx R
+b10 Q
+b1000001 P
+bx O
+bx N
+bx M
+bx L
+b10 K
+b1000001 J
+bx I
+bx H
+bx G
+bx F
+b10 E
+b1000001 D
+bx C
+bx B
+xA
+bx @
+bx ?
+b10 >
+b1000001 =
+bx <
+b10 ;
+b1000001 :
+bx 9
+b10 8
+b10 7
+b1000001 6
+bx 5
+bx 4
+b10 3
+b1000001 2
+bx 1
+bx 0
+bx /
+bx .
+bx -
+bx ,
+bx +
+bx *
+bx )
+b0 (
+b10 '
+b1000001 &
+b0 %
+b10 $
+b1000001 #
+bx "
+x!
+$end
+#1
+0!
+b10 "
+b10 1
+b1000011 -
+b1000011 <
+b0 /
+b0 5
+b10 .
+b10 9
+b111 C
+0A
+b10 B
+b1010000 @
+b111 O
+b10 N
+b10000 M
+b111 U
+b10 T
+b10000 S
+b0 I
+b10 H
+b100 G
+#2
+b1010000 ,
+b1010000 ?
+b10000 *
+b10000 L
+b10000 )
+b10000 R
+b100 +
+b100 F
+b1000011 0
+b1000011 4
+#5
+b100 "
+b100 1
+b100 %
+b100 (
+#10
+b10000 "
+b10000 1
+b101 %
+b101 (
+#15
+b110 %
+b110 (
+#20
+b1010000 "
+b1010000 1
+b111 %
+b111 (
+#25
