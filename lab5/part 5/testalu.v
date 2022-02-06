@@ -5,9 +5,10 @@ module testbench ;
     reg [2:0] SELECT;
     wire [7:0] RESULT;
     wire zero;
+    wire SLL;
 
 
-Alu alu(zero, RESULT, DATA1, DATA2, SELECT);
+Alu alu(zero, RESULT, DATA1, DATA2, SELECT, SLL);
 initial begin 
     $dumpfile("wavedata.vcd");
     $dumpvars(0, testbench);

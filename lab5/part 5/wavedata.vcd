@@ -1,5 +1,5 @@
 $date
-	Sun Feb  6 11:59:55 2022
+	Sun Feb  6 12:57:08 2022
 $end
 $version
 	Icarus Verilog
@@ -8,118 +8,123 @@ $timescale
 	1s
 $end
 $scope module testbench $end
-$var wire 1 ! zero $end
-$var wire 8 " RESULT [7:0] $end
-$var reg 8 # DATA1 [7:0] $end
-$var reg 8 $ DATA2 [7:0] $end
-$var reg 3 % SELECT [2:0] $end
+$var wire 1 ! SLL $end
+$var wire 1 " zero $end
+$var wire 8 # RESULT [7:0] $end
+$var reg 8 $ DATA1 [7:0] $end
+$var reg 8 % DATA2 [7:0] $end
+$var reg 3 & SELECT [2:0] $end
 $scope module alu $end
-$var wire 8 & DATA1 [7:0] $end
-$var wire 8 ' DATA2 [7:0] $end
-$var wire 3 ( SELECT [2:0] $end
-$var wire 1 ! ZERO $end
-$var wire 8 ) SRL_OUT [7:0] $end
-$var wire 8 * SRA_OUT [7:0] $end
-$var wire 8 + SLL_OUT [7:0] $end
-$var wire 8 , ROR_OUT [7:0] $end
-$var wire 8 - OR_OUT [7:0] $end
-$var wire 8 . FORWARD_OUT [7:0] $end
-$var wire 8 / AND_OUT [7:0] $end
-$var wire 8 0 ADD_OUT [7:0] $end
-$var reg 8 1 RESULT [7:0] $end
+$var wire 8 ' DATA1 [7:0] $end
+$var wire 8 ( DATA2 [7:0] $end
+$var wire 8 ) MUL_OUT [7:0] $end
+$var wire 3 * SELECT [2:0] $end
+$var wire 1 ! SLL $end
+$var wire 1 " ZERO $end
+$var wire 8 + SRL_OUT [7:0] $end
+$var wire 8 , SRA_OUT [7:0] $end
+$var wire 8 - SLL_OUT [7:0] $end
+$var wire 8 . ROR_OUT [7:0] $end
+$var wire 8 / OR_OUT [7:0] $end
+$var wire 8 0 FORWARD_OUT [7:0] $end
+$var wire 8 1 AND_OUT [7:0] $end
+$var wire 8 2 ADD_OUT [7:0] $end
+$var reg 8 3 RESULT [7:0] $end
 $scope module add1 $end
-$var wire 8 2 DATA1 [7:0] $end
-$var wire 8 3 DATA2 [7:0] $end
-$var wire 8 4 ADD_OUT [7:0] $end
+$var wire 8 4 DATA1 [7:0] $end
+$var wire 8 5 DATA2 [7:0] $end
+$var wire 8 6 ADD_OUT [7:0] $end
 $upscope $end
 $scope module and1 $end
-$var wire 8 5 AND_OUT [7:0] $end
-$var wire 8 6 DATA1 [7:0] $end
-$var wire 8 7 DATA2 [7:0] $end
+$var wire 8 7 AND_OUT [7:0] $end
+$var wire 8 8 DATA1 [7:0] $end
+$var wire 8 9 DATA2 [7:0] $end
 $upscope $end
 $scope module fwd1 $end
-$var wire 8 8 DATA2 [7:0] $end
-$var wire 8 9 FORWARD_OUT [7:0] $end
+$var wire 8 : DATA2 [7:0] $end
+$var wire 8 ; FORWARD_OUT [7:0] $end
 $upscope $end
 $scope module or1 $end
-$var wire 8 : DATA1 [7:0] $end
-$var wire 8 ; DATA2 [7:0] $end
-$var wire 8 < OR_OUT [7:0] $end
+$var wire 8 < DATA1 [7:0] $end
+$var wire 8 = DATA2 [7:0] $end
+$var wire 8 > OR_OUT [7:0] $end
 $upscope $end
 $scope module ror1 $end
-$var wire 8 = DATA1 [7:0] $end
-$var wire 8 > DATA2 [7:0] $end
-$var wire 8 ? ROR_OUT [7:0] $end
-$var reg 8 @ shifted [7:0] $end
-$var reg 1 A temp $end
-$var integer 32 B i [31:0] $end
-$var integer 32 C j [31:0] $end
+$var wire 8 ? DATA1 [7:0] $end
+$var wire 8 @ DATA2 [7:0] $end
+$var wire 8 A ROR_OUT [7:0] $end
+$var reg 8 B shifted [7:0] $end
+$var reg 1 C temp $end
+$var integer 32 D i [31:0] $end
+$var integer 32 E j [31:0] $end
 $upscope $end
 $scope module slll1 $end
-$var wire 8 D DATA1 [7:0] $end
-$var wire 8 E DATA2 [7:0] $end
-$var wire 8 F SLL_OUT [7:0] $end
-$var reg 8 G shifted [7:0] $end
-$var integer 32 H i [31:0] $end
-$var integer 32 I j [31:0] $end
+$var wire 8 F DATA1 [7:0] $end
+$var wire 8 G DATA2 [7:0] $end
+$var wire 8 H SLL_OUT [7:0] $end
+$var reg 8 I shifted [7:0] $end
+$var integer 32 J i [31:0] $end
+$var integer 32 K j [31:0] $end
 $upscope $end
 $scope module sra1 $end
-$var wire 8 J DATA1 [7:0] $end
-$var wire 8 K DATA2 [7:0] $end
-$var wire 8 L SRA_OUT [7:0] $end
-$var reg 8 M shifted [7:0] $end
-$var integer 32 N i [31:0] $end
-$var integer 32 O j [31:0] $end
+$var wire 8 L DATA1 [7:0] $end
+$var wire 8 M DATA2 [7:0] $end
+$var wire 8 N SRA_OUT [7:0] $end
+$var reg 8 O shifted [7:0] $end
+$var integer 32 P i [31:0] $end
+$var integer 32 Q j [31:0] $end
 $upscope $end
 $scope module srl1 $end
-$var wire 8 P DATA1 [7:0] $end
-$var wire 8 Q DATA2 [7:0] $end
-$var wire 8 R SRL_OUT [7:0] $end
-$var reg 8 S shifted [7:0] $end
-$var integer 32 T i [31:0] $end
-$var integer 32 U j [31:0] $end
+$var wire 8 R DATA1 [7:0] $end
+$var wire 8 S DATA2 [7:0] $end
+$var wire 8 T SRL_OUT [7:0] $end
+$var reg 8 U shifted [7:0] $end
+$var integer 32 V i [31:0] $end
+$var integer 32 W j [31:0] $end
 $upscope $end
 $upscope $end
 $upscope $end
 $enddefinitions $end
 #0
 $dumpvars
+bx W
+bx V
 bx U
 bx T
-bx S
-bx R
-b10 Q
-b1000001 P
+b10 S
+b1000001 R
+bx Q
+bx P
 bx O
 bx N
-bx M
-bx L
-b10 K
-b1000001 J
+b10 M
+b1000001 L
+bx K
+bx J
 bx I
 bx H
-bx G
-bx F
-b10 E
-b1000001 D
-bx C
+b10 G
+b1000001 F
+bx E
+bx D
+xC
 bx B
-xA
-bx @
-bx ?
-b10 >
-b1000001 =
-bx <
-b10 ;
-b1000001 :
-bx 9
-b10 8
-b10 7
-b1000001 6
-bx 5
-bx 4
-b10 3
-b1000001 2
+bx A
+b10 @
+b1000001 ?
+bx >
+b10 =
+b1000001 <
+bx ;
+b10 :
+b10 9
+b1000001 8
+bx 7
+bx 6
+b10 5
+b1000001 4
+bx 3
+bx 2
 bx 1
 bx 0
 bx /
@@ -127,67 +132,69 @@ bx .
 bx -
 bx ,
 bx +
-bx *
-bx )
-b0 (
-b10 '
-b1000001 &
-b0 %
-b10 $
-b1000001 #
-bx "
-x!
+b0 *
+bz )
+b10 (
+b1000001 '
+b0 &
+b10 %
+b1000001 $
+bx #
+x"
+z!
 $end
 #1
-0!
-b10 "
-b10 1
-b1000011 -
-b1000011 <
-b0 /
-b0 5
-b10 .
-b10 9
-b111 C
-0A
-b10 B
-b1010000 @
-b111 O
-b10 N
-b10000 M
-b111 U
-b10 T
-b10000 S
-b0 I
-b10 H
-b100 G
+0"
+b10 #
+b10 3
+b1000011 /
+b1000011 >
+b0 1
+b0 7
+b10 0
+b10 ;
+b111 E
+0C
+b10 D
+b1010000 B
+b111 Q
+b10 P
+b10000 O
+b111 W
+b10 V
+b10000 U
+b0 K
+b10 J
+b100 I
 #2
-b1010000 ,
-b1010000 ?
-b10000 *
-b10000 L
-b10000 )
-b10000 R
-b100 +
-b100 F
-b1000011 0
-b1000011 4
+b1010000 .
+b1010000 A
+b10000 ,
+b10000 N
+b10000 +
+b10000 T
+b100 -
+b100 H
+b1000011 2
+b1000011 6
 #5
-b100 "
-b100 1
-b100 %
-b100 (
+x"
+bz #
+bz 3
+b100 &
+b100 *
 #10
-b10000 "
-b10000 1
-b101 %
-b101 (
+0"
+b10000 #
+b10000 3
+b101 &
+b101 *
 #15
-b110 %
-b110 (
+b110 &
+b110 *
 #20
-b1010000 "
-b1010000 1
-b111 %
-b111 (
+b1010000 #
+b1010000 3
+b111 &
+b111 *
 #25

@@ -1,14 +1,15 @@
-module Alu (ZERO, RESULT, DATA1, DATA2, SELECT);
+module Alu (ZERO, RESULT, DATA1, DATA2, SELECT, SLL);
 
 // port declaration
 input [7:0] DATA1, DATA2;
 input [2:0] SELECT;
 output reg [7:0] RESULT;
 output  ZERO;
+input SLL;
 
 
 
-wire [7:0] ADD_OUT, FORWARD_OUT, AND_OUT, OR_OUT, SLL_OUT, SRL_OUT, SRA_OUT, ROR_OUT;
+wire [7:0] ADD_OUT, FORWARD_OUT, AND_OUT, OR_OUT, SLL_OUT, SRL_OUT, SRA_OUT, ROR_OUT, MUL_OUT;
 
 
 // module initialize
@@ -41,9 +42,12 @@ always @(*) begin //always @(*) begin
         'b011:
             RESULT = OR_OUT; 
         'b100:
-            RESULT = SLL_OUT; 
+            RESULT = MUL_OUT; 
         'b101:
-            RESULT = SRL_OUT;
+            begin
+                if(SLL) RESULT = SLL_OUT;
+                else RESULT = SRL_OUT;
+            end
         'b110:
             RESULT = SRA_OUT; 
         'b111:
@@ -54,8 +58,6 @@ always @(*) begin //always @(*) begin
     endcase
 
 end
-
-  
 
 
 endmodule
