@@ -1,5 +1,5 @@
 $date
-	Sun Feb  6 12:57:08 2022
+	Sun Feb  6 13:02:54 2022
 $end
 $version
 	Icarus Verilog
@@ -17,15 +17,15 @@ $var reg 3 & SELECT [2:0] $end
 $scope module alu $end
 $var wire 8 ' DATA1 [7:0] $end
 $var wire 8 ( DATA2 [7:0] $end
-$var wire 8 ) MUL_OUT [7:0] $end
-$var wire 3 * SELECT [2:0] $end
+$var wire 3 ) SELECT [2:0] $end
 $var wire 1 ! SLL $end
 $var wire 1 " ZERO $end
-$var wire 8 + SRL_OUT [7:0] $end
-$var wire 8 , SRA_OUT [7:0] $end
-$var wire 8 - SLL_OUT [7:0] $end
-$var wire 8 . ROR_OUT [7:0] $end
-$var wire 8 / OR_OUT [7:0] $end
+$var wire 8 * SRL_OUT [7:0] $end
+$var wire 8 + SRA_OUT [7:0] $end
+$var wire 8 , SLL_OUT [7:0] $end
+$var wire 8 - ROR_OUT [7:0] $end
+$var wire 8 . OR_OUT [7:0] $end
+$var wire 8 / MUL_OUT [7:0] $end
 $var wire 8 0 FORWARD_OUT [7:0] $end
 $var wire 8 1 AND_OUT [7:0] $end
 $var wire 8 2 ADD_OUT [7:0] $end
@@ -44,71 +44,79 @@ $scope module fwd1 $end
 $var wire 8 : DATA2 [7:0] $end
 $var wire 8 ; FORWARD_OUT [7:0] $end
 $upscope $end
-$scope module or1 $end
+$scope module mul1 $end
 $var wire 8 < DATA1 [7:0] $end
 $var wire 8 = DATA2 [7:0] $end
-$var wire 8 > OR_OUT [7:0] $end
+$var wire 8 > MUL_OUT [7:0] $end
 $upscope $end
-$scope module ror1 $end
+$scope module or1 $end
 $var wire 8 ? DATA1 [7:0] $end
 $var wire 8 @ DATA2 [7:0] $end
-$var wire 8 A ROR_OUT [7:0] $end
-$var reg 8 B shifted [7:0] $end
-$var reg 1 C temp $end
-$var integer 32 D i [31:0] $end
-$var integer 32 E j [31:0] $end
+$var wire 8 A OR_OUT [7:0] $end
+$upscope $end
+$scope module ror1 $end
+$var wire 8 B DATA1 [7:0] $end
+$var wire 8 C DATA2 [7:0] $end
+$var wire 8 D ROR_OUT [7:0] $end
+$var reg 8 E shifted [7:0] $end
+$var reg 1 F temp $end
+$var integer 32 G i [31:0] $end
+$var integer 32 H j [31:0] $end
 $upscope $end
 $scope module slll1 $end
-$var wire 8 F DATA1 [7:0] $end
-$var wire 8 G DATA2 [7:0] $end
-$var wire 8 H SLL_OUT [7:0] $end
-$var reg 8 I shifted [7:0] $end
-$var integer 32 J i [31:0] $end
-$var integer 32 K j [31:0] $end
+$var wire 8 I DATA1 [7:0] $end
+$var wire 8 J DATA2 [7:0] $end
+$var wire 8 K SLL_OUT [7:0] $end
+$var reg 8 L shifted [7:0] $end
+$var integer 32 M i [31:0] $end
+$var integer 32 N j [31:0] $end
 $upscope $end
 $scope module sra1 $end
-$var wire 8 L DATA1 [7:0] $end
-$var wire 8 M DATA2 [7:0] $end
-$var wire 8 N SRA_OUT [7:0] $end
-$var reg 8 O shifted [7:0] $end
-$var integer 32 P i [31:0] $end
-$var integer 32 Q j [31:0] $end
+$var wire 8 O DATA1 [7:0] $end
+$var wire 8 P DATA2 [7:0] $end
+$var wire 8 Q SRA_OUT [7:0] $end
+$var reg 8 R shifted [7:0] $end
+$var integer 32 S i [31:0] $end
+$var integer 32 T j [31:0] $end
 $upscope $end
 $scope module srl1 $end
-$var wire 8 R DATA1 [7:0] $end
-$var wire 8 S DATA2 [7:0] $end
-$var wire 8 T SRL_OUT [7:0] $end
-$var reg 8 U shifted [7:0] $end
-$var integer 32 V i [31:0] $end
-$var integer 32 W j [31:0] $end
+$var wire 8 U DATA1 [7:0] $end
+$var wire 8 V DATA2 [7:0] $end
+$var wire 8 W SRL_OUT [7:0] $end
+$var reg 8 X shifted [7:0] $end
+$var integer 32 Y i [31:0] $end
+$var integer 32 Z j [31:0] $end
 $upscope $end
 $upscope $end
 $upscope $end
 $enddefinitions $end
 #0
 $dumpvars
+bx Z
+bx Y
+bx X
 bx W
-bx V
-bx U
+b10 V
+b1000001 U
 bx T
-b10 S
-b1000001 R
+bx S
+bx R
 bx Q
-bx P
-bx O
+b10 P
+b1000001 O
 bx N
-b10 M
-b1000001 L
+bx M
+bx L
 bx K
-bx J
-bx I
+b10 J
+b1000001 I
 bx H
-b10 G
-b1000001 F
+bx G
+xF
 bx E
 bx D
-xC
-bx B
+b10 C
+b1000001 B
 bx A
 b10 @
 b1000001 ?
@@ -132,8 +140,8 @@ bx .
 bx -
 bx ,
 bx +
-b0 *
-bz )
+bx *
+b0 )
 b10 (
 b1000001 '
 b0 &
@@ -147,54 +155,54 @@ $end
 0"
 b10 #
 b10 3
-b1000011 /
-b1000011 >
+b1000011 .
+b1000011 A
 b0 1
 b0 7
 b10 0
 b10 ;
-b111 E
-0C
-b10 D
-b1010000 B
-b111 Q
-b10 P
-b10000 O
-b111 W
-b10 V
-b10000 U
-b0 K
-b10 J
-b100 I
+b10000010 /
+b10000010 >
+b111 H
+0F
+b10 G
+b1010000 E
+b111 T
+b10 S
+b10000 R
+b111 Z
+b10 Y
+b10000 X
+b0 N
+b10 M
+b100 L
 #2
-b1010000 .
-b1010000 A
-b10000 ,
-b10000 N
+b1010000 -
+b1010000 D
 b10000 +
-b10000 T
-b100 -
-b100 H
+b10000 Q
+b10000 *
+b10000 W
+b100 ,
+b100 K
 b1000011 2
 b1000011 6
 #5
-x"
-bz #
-bz 3
+b10000010 #
+b10000010 3
 b100 &
-b100 *
+b100 )
 #10
-0"
 b10000 #
 b10000 3
 b101 &
-b101 *
+b101 )
 #15
 b110 &
-b110 *
+b110 )
 #20
 b1010000 #
 b1010000 3
 b111 &
-b111 *
+b111 )
 #25
