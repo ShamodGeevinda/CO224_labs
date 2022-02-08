@@ -1,3 +1,5 @@
+`include "mymul.v"
+
 module Alu (ZERO, RESULT, DATA1, DATA2, SELECT, SLL);
 
 // port declaration
@@ -21,7 +23,7 @@ sll slll1(SLL_OUT, DATA1, DATA2);
 srl srl1(SRL_OUT, DATA1, DATA2);
 sra sra1(SRA_OUT, DATA1, DATA2);
 ror ror1(ROR_OUT, DATA1, DATA2);
-mult mul1(MUL_OUT, DATA1, DATA2);
+multi mul1(MUL_OUT, DATA1, DATA2);
 
 
 
@@ -176,8 +178,8 @@ module srl (SRL_OUT, DATA1, DATA2);
     
 endmodule
 
-module mult (MUL_OUT, DATA1, DATA2);
-    input [7:0] DATA1, DATA2;
-    output [7:0] MUL_OUT;
-    assign #1  MUL_OUT = DATA1 * DATA2; 
-endmodule
+// module mult (MUL_OUT, DATA1, DATA2);
+//     input [7:0] DATA1, DATA2;
+//     output [7:0] MUL_OUT;
+//     assign #1  MUL_OUT = DATA1 * DATA2; 
+// endmodule

@@ -13,18 +13,21 @@ initial begin
     $dumpfile("wavedata.vcd");
     $dumpvars(0, testbench);
 
-    DATA1=  65;
-    DATA2 = 2;
+    DATA1=  -4;
+    DATA2 = 5;
 
-
-SELECT = 0;
-#5       $display("DATA1= %d, DATA2= %d, SELECT= %d, RESULT =%d", DATA1, DATA2, SELECT, RESULT);
 
 SELECT = 4;
-#5      $display("DATA1= %d, DATA2= %d, SELECT= %d, RESULT =%d", DATA1, DATA2, SELECT, RESULT);
+#5       $display("DATA1= %d, DATA2= %d, SELECT= %d, RESULT =%d", $signed(DATA1), $signed(DATA2), SELECT, $signed(RESULT));
 
-SELECT = 5;
-#5      $display("DATA1= %d, DATA2= %d, SELECT= %d, RESULT =%d", DATA1, DATA2, SELECT, RESULT);
+DATA1=  6;
+    DATA2 = -3;
+SELECT = 4;
+#5      $display("DATA1= %d, DATA2= %d, SELECT= %d, RESULT =%d", $signed(DATA1), $signed(DATA2), SELECT, $signed(RESULT));
+DATA1=  7;
+    DATA2 = 6;
+SELECT = 4;
+#5      $display("DATA1= %d, DATA2= %d, SELECT= %d, RESULT =%d", $signed(DATA1), $signed(DATA2), SELECT, $signed(RESULT));
 
 SELECT = 6;
 #5      $display("DATA1= %d, DATA2= %d, SELECT= %d, RESULT =%d", DATA1, DATA2, SELECT, RESULT);
