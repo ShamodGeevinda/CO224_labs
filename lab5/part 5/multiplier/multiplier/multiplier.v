@@ -1,13 +1,13 @@
 `include "fullAdder.v"
 
-// INPUT1 Y
-//INPUT2 x
+
 module multiplier(RESULT,INPUT1,INPUT2);
 	
 	// port declarartion
 	input [7:0] INPUT1,INPUT2;
 	output [7:0] RESULT;
 
+	// wires for the internal implementations
 	wire temp0,temp1,temp2,temp3,temp4,temp5,temp6,temp7;
 	
 	// 1st row
@@ -113,7 +113,7 @@ module multiplier(RESULT,INPUT1,INPUT2);
 	and c7r7_a1(h33,INPUT2[7],INPUT1[0]);
 	half_adder c7r7_h(temp7,carry_h7,h33,sum_f21);
 	
-	
+	// final result 
 	assign RESULT = {temp7,temp6,temp5,temp4,temp3,temp2,temp1,temp0};
 	
 endmodule
