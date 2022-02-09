@@ -9,16 +9,16 @@
 
 `include "mymul.v"
 
-module MULT(mult_Out,DATA1,DATA2);
+// module MULT(mult_Out,DATA1,DATA2);
 	
-	//port declaration
-	input [7:0] DATA1,DATA2;
-	output [7:0] mult_Out;
+// 	//port declaration
+// 	input [7:0] DATA1,DATA2;
+// 	output [7:0] mult_Out;
 
-	multi my_multiplier(mult_Out, DATA1, DATA2);
+// 	multi my_multiplier(mult_Out, DATA1, DATA2);
 	
 
-endmodule
+// endmodule
 
 
 // bitwise or operation
@@ -76,7 +76,7 @@ module alu(RESULT,ZERO,DATA1,DATA2,SELECT);
 	input [2:0] SELECT;					// select is which operation must do.
 	output reg[7:0] RESULT;					// final ALU output
 	output ZERO; 						// ZERO output
-	wire[7:0] fwd_Out, add_Out, and_Out, or_Out, mult_Out ;	// to get the output of operation modules
+	wire[7:0] fwd_Out, add_Out, and_Out, or_Out, mul_Out ;	// to get the output of operation modules
 	
 	// use above operation modules. 
 	// DATA1, DATA2 are inputs. fwd_Out, add_Out, and_Out and or_Out are output.
@@ -84,7 +84,7 @@ module alu(RESULT,ZERO,DATA1,DATA2,SELECT);
 	ADD addOp(add_Out,DATA1,DATA2);
 	AND andOp(and_Out,DATA1,DATA2);
 	OR orOp(or_Out,DATA1,DATA2);
-	MULT multOp(mult_Out,DATA1,DATA2);
+	multi multOp(mul_Out,DATA1,DATA2);
 	
 	
 
@@ -113,7 +113,7 @@ module alu(RESULT,ZERO,DATA1,DATA2,SELECT);
 		
 	'b100:
 		
-		RESULT = mult_Out;			// multiplication operation
+		RESULT = mul_Out;			// multiplication operation
 		
 
 	default:

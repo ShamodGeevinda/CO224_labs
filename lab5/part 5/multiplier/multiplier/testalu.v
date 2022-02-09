@@ -13,7 +13,7 @@ initial begin
     $dumpfile("wavedata.vcd");
     $dumpvars(0, testbench);
 
-    DATA1=  0;
+    DATA1=  5;
     DATA2 = -1;
 
 

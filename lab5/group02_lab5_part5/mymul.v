@@ -31,9 +31,9 @@ twos_comp tc4(comp, val[6:0]);
 
 
 
-initial begin
+always @(*) begin
   #2
-  // check weather the one of the 
+  // check weather the one of the data is equal to zero
   if (DATA1 == 0 || DATA2 == 0) begin
      mult_Out = 8'b0;
         
@@ -82,7 +82,7 @@ output reg  [7:0] ND1, ND2;
 
 
 // according to the sign of input making absolute valueas as inputs for the multiplier
-initial begin
+always @(*) begin
   #1
   
    if (!MSB) begin // both inputs are negative or postive
