@@ -289,10 +289,72 @@ module control_unit(BUSYWAIT, READ, WRITE, MUX_WRITEDATA, ALUOP,MUX_2SCMPL,MUX_I
 				MUX_WRITEDATA = 1'b0; // selecting data from memory
 
 			end
-			// char *op_lwd 	= "00001000";
-			// char *op_lwi 	= "00001001";
-			// char *op_swd 	= "00001010";
-			// char *op_swi 	= "00001011";
+
+			8'b00001000: begin // lwd
+				ALUOP = 3'b000;         // alu operation code (forward)
+				MUX_2SCMPL = 1'b0;      // 2s complement select pin
+				MUX_IMMD = 1'b0;        // immediadte value select pin
+				WRITEENABLE = 1'b1;     // register write enable pin
+				BEQ_ENABLE = 1'b0;      // branch equal enable pin
+				JUMP_ENABLE = 1'b0;     // jump enable pin
+				BNE_ENABLE = 1'b0;	// bne enable pin
+				SHIFT_ENABLE = 1'b0;	// right left shift enable pin
+				SHIFTOP = 2'bXX;	// shift type
+				BUSYWAIT = 1'b1;    // BUSYWAIT signal for stall cpu
+				READ = 1'b1;		// memory read
+				WRITE = 1'b0;		// memory write
+				MUX_WRITEDATA = 1'b1; // selecting data from memory
+
+			end
+			8'b00001001: begin // lwi
+				ALUOP = 3'b000;         // alu operation code (forward)
+				MUX_2SCMPL = 1'b0;      // 2s complement select pin
+				MUX_IMMD = 1'b1;        // immediadte value select pin
+				WRITEENABLE = 1'b1;     // register write enable pin
+				BEQ_ENABLE = 1'b0;      // branch equal enable pin
+				JUMP_ENABLE = 1'b0;     // jump enable pin
+				BNE_ENABLE = 1'b0;	// bne enable pin
+				SHIFT_ENABLE = 1'b0;	// right left shift enable pin
+				SHIFTOP = 2'bXX;	// shift type
+				BUSYWAIT = 1'b1;    // BUSYWAIT signal for stall cpu
+				READ = 1'b1;		// memory read
+				WRITE = 1'b0;		// memory write
+				MUX_WRITEDATA = 1'b1; // selecting data from memory
+				
+			end
+			8'b00001010: begin // swd
+				ALUOP = 3'b000;         // alu operation code (forward)
+				MUX_2SCMPL = 1'b0;      // 2s complement select pin
+				MUX_IMMD = 1'b0;        // immediadte value select pin
+				WRITEENABLE = 1'b0;     // register write enable pin
+				BEQ_ENABLE = 1'b0;      // branch equal enable pin
+				JUMP_ENABLE = 1'b0;     // jump enable pin
+				BNE_ENABLE = 1'b0;	// bne enable pin
+				SHIFT_ENABLE = 1'b0;	// right left shift enable pin
+				SHIFTOP = 2'bXX;	// shift type
+				BUSYWAIT = 1'b1;    // BUSYWAIT signal for stall cpu
+				READ = 1'b0;		// memory read
+				WRITE = 1'b1;		// memory write
+				MUX_WRITEDATA = 1'b1; // selecting data from memory
+				
+			end
+			8'b00001011: begin // swi
+				ALUOP = 3'b000;         // alu operation code (forward)
+				MUX_2SCMPL = 1'b0;      // 2s complement select pin
+				MUX_IMMD = 1'b1;        // immediadte value select pin
+				WRITEENABLE = 1'b0;     // register write enable pin
+				BEQ_ENABLE = 1'b0;      // branch equal enable pin
+				JUMP_ENABLE = 1'b0;     // jump enable pin
+				BNE_ENABLE = 1'b0;	// bne enable pin
+				SHIFT_ENABLE = 1'b0;	// right left shift enable pin
+				SHIFTOP = 2'bXX;	// shift type
+				BUSYWAIT = 1'b1;    // BUSYWAIT signal for stall cpu
+				READ = 1'b0;		// memory read
+				WRITE = 1'b1;		// memory write
+				MUX_WRITEDATA = 1'b1; // selecting data from memory
+				
+			end
+			
 			
 		endcase
 	end
