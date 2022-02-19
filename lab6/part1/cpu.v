@@ -17,17 +17,18 @@
 `include "barrelShifter.v"
 `include "datamemory.v"
 
-module cpu(PC, INSTRUCTION, CLK, RESET, BUSYWAIT);
+module cpu(PC, INSTRUCTION, CLK, RESET);
 	
 	// port declarations
 	input [31:0] INSTRUCTION;		// this is for 32 bits instruction
-	input CLK, RESET, BUSYWAIT;			// 1 bit clock and reset
+	input CLK, RESET;			// 1 bit clock and reset
 	output reg[31:0] PC;			// 32 bits PC
-	
+	// output  BUSYWAIT;
 	
 	wire TWOs_ENABLE, IMMD_ENABLE, WRITEENABLE, ZERO, BEQ_ENABLE, JUMP_ENABLE, BEQ_SELECT,BEQ_JUMP_ENABLE, READ, WRITE, MUX_WRITEDATA;
 	wire BNE_ENABLE, SHIFT_ENABLE;							//task 5 new control signal
 	wire BNE_BEQ_JUMP_ENABLE,BNE_SELECT;		// task 5 other wires
+	wire BUSYWAIT;
 	wire [1:0] SHIFTOP;
 	wire [2:0] ALUOP;
 	wire [7:0] WRITEREG, READREG1, READREG2; 
@@ -88,13 +89,16 @@ module cpu(PC, INSTRUCTION, CLK, RESET, BUSYWAIT);
 									// reset the PC
 		
 		else  
-			// if (BUSYWAIT!=1)  
+			 if (BUSYWAIT!=1)  
 	   			PC = #1 PC_NEXT ;	
 				   			// increment the PC  
-			// else  
-			// 	PC = #1	PC	;
+			 else  
+			 	PC = #1	PC	;
 				
-	end		
+	end	
+	// always @( BUSYWAIT) begin
+	// 	PC = #1 PC;
+	// end	
 
 
 endmodule	

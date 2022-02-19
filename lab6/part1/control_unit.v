@@ -10,15 +10,15 @@
 module control_unit(BUSYWAIT, READ, WRITE, MUX_WRITEDATA, ALUOP,MUX_2SCMPL,MUX_IMMD,WRITEENABLE,BEQ_ENABLE, JUMP_ENABLE, BNE_ENABLE, SHIFT_ENABLE, SHIFTOP, OP);
 
 	input [7:0] OP;						// opcode
-
-	output reg MUX_2SCMPL, MUX_IMMD, WRITEENABLE, BEQ_ENABLE, JUMP_ENABLE, BNE_ENABLE, SHIFT_ENABLE,BUSYWAIT, READ, WRITE, MUX_WRITEDATA;		// 1 bit outputs from control unit
+	input BUSYWAIT;
+	output reg MUX_2SCMPL, MUX_IMMD, WRITEENABLE, BEQ_ENABLE, JUMP_ENABLE, BNE_ENABLE, SHIFT_ENABLE, READ, WRITE, MUX_WRITEDATA;		// 1 bit outputs from control unit
 	output reg [1:0] SHIFTOP;				// shift type
 	output reg [2:0] ALUOP;					// 3-bits ALU opcode
 
 	
 	always @(*)
 	begin 	
-		
+	 wait(BUSYWAIT==0);	
 		#1
 
 		case(OP)
@@ -34,7 +34,6 @@ module control_unit(BUSYWAIT, READ, WRITE, MUX_WRITEDATA, ALUOP,MUX_2SCMPL,MUX_I
 				BNE_ENABLE = 1'b0;	// bne enable pin
 				SHIFT_ENABLE = 1'b0;	// right left shift enable pin
 				SHIFTOP = 2'bXX;	// shift type
-				BUSYWAIT = 1'b0;    // BUSYWAIT signal for stall cpu
 				READ = 1'b0;		// memory read
 				WRITE = 1'b0;		// memory write
 				MUX_WRITEDATA = 1'b0; // selecting data from memory
@@ -53,7 +52,6 @@ module control_unit(BUSYWAIT, READ, WRITE, MUX_WRITEDATA, ALUOP,MUX_2SCMPL,MUX_I
 				BNE_ENABLE = 1'b0;	// bne enable pin
 				SHIFT_ENABLE = 1'b0;	// right left shift enable pin
 				SHIFTOP = 2'bXX;	// shift type
-				BUSYWAIT = 1'b0;    // BUSYWAIT signal for stall cpu
 				READ = 1'b0;		// memory read
 				WRITE = 1'b0;		// memory write
 				MUX_WRITEDATA = 1'b0; // selecting data from memory
@@ -71,7 +69,6 @@ module control_unit(BUSYWAIT, READ, WRITE, MUX_WRITEDATA, ALUOP,MUX_2SCMPL,MUX_I
 				BNE_ENABLE = 1'b0;	// bne enable pin
 				SHIFT_ENABLE = 1'b0;	// right left shift enable pin
 				SHIFTOP = 2'bXX;	// shift type
-				BUSYWAIT = 1'b0;    // BUSYWAIT signal for stall cpu
 				READ = 1'b0;		// memory read
 				WRITE = 1'b0;		// memory write
 				MUX_WRITEDATA = 1'b0; // selecting data from memory
@@ -89,7 +86,6 @@ module control_unit(BUSYWAIT, READ, WRITE, MUX_WRITEDATA, ALUOP,MUX_2SCMPL,MUX_I
 				BNE_ENABLE = 1'b0;	// bne enable pin
 				SHIFT_ENABLE = 1'b0;	// right left shift enable pin
 				SHIFTOP = 2'bXX;	// shift type
-				BUSYWAIT = 1'b0;    // BUSYWAIT signal for stall cpu
 				READ = 1'b0;		// memory read
 				WRITE = 1'b0;		// memory write
 				MUX_WRITEDATA = 1'b0; // selecting data from memory
@@ -108,7 +104,6 @@ module control_unit(BUSYWAIT, READ, WRITE, MUX_WRITEDATA, ALUOP,MUX_2SCMPL,MUX_I
 				BNE_ENABLE = 1'b0;	// bne enable pin
 				SHIFT_ENABLE = 1'b0;	// right left shift enable pin
 				SHIFTOP = 2'bXX;	// shift type
-				BUSYWAIT = 1'b0;    // BUSYWAIT signal for stall cpu
 				READ = 1'b0;		// memory read
 				WRITE = 1'b0;		// memory write
 				MUX_WRITEDATA = 1'b0; // selecting data from memory
@@ -127,7 +122,6 @@ module control_unit(BUSYWAIT, READ, WRITE, MUX_WRITEDATA, ALUOP,MUX_2SCMPL,MUX_I
 				BNE_ENABLE = 1'b0;	// bne enable pin
 				SHIFT_ENABLE = 1'b0;	// right left shift enable pin
 				SHIFTOP = 2'bXX;	// shift type
-				BUSYWAIT = 1'b0;    // BUSYWAIT signal for stall cpu
 				READ = 1'b0;		// memory read
 				WRITE = 1'b0;		// memory write
 				MUX_WRITEDATA = 1'b0; // selecting data from memory
@@ -146,7 +140,6 @@ module control_unit(BUSYWAIT, READ, WRITE, MUX_WRITEDATA, ALUOP,MUX_2SCMPL,MUX_I
 				BNE_ENABLE = 1'b0;	// bne enable pin
 				SHIFT_ENABLE = 1'b0;	// right left shift enable pin
 				SHIFTOP = 2'bXX;	// shift type
-				BUSYWAIT = 1'b0;    // BUSYWAIT signal for stall cpu
 				READ = 1'b0;		// memory read
 				WRITE = 1'b0;		// memory write
 				MUX_WRITEDATA = 1'b0; // selecting data from memory
@@ -165,7 +158,6 @@ module control_unit(BUSYWAIT, READ, WRITE, MUX_WRITEDATA, ALUOP,MUX_2SCMPL,MUX_I
 				BNE_ENABLE = 1'b0;	// bne enable pin
 				SHIFT_ENABLE = 1'b0;	// right left shift enable pin
 				SHIFTOP = 2'bXX;	// shift type
-				BUSYWAIT = 1'b0;    // BUSYWAIT signal for stall cpu
 				READ = 1'b0;		// memory read
 				WRITE = 1'b0;		// memory write
 				MUX_WRITEDATA = 1'b0; // selecting data from memory
@@ -186,7 +178,6 @@ module control_unit(BUSYWAIT, READ, WRITE, MUX_WRITEDATA, ALUOP,MUX_2SCMPL,MUX_I
 				BNE_ENABLE = 1'b0;	// bne enable pin
 				SHIFT_ENABLE = 1'b0;	// right left shift enable pin
 				SHIFTOP = 2'bXX;	// shift type
-				BUSYWAIT = 1'b0;    // BUSYWAIT signal for stall cpu
 				READ = 1'b0;		// memory read
 				WRITE = 1'b0;		// memory write
 				MUX_WRITEDATA = 1'b0; // selecting data from memory
@@ -205,7 +196,6 @@ module control_unit(BUSYWAIT, READ, WRITE, MUX_WRITEDATA, ALUOP,MUX_2SCMPL,MUX_I
 				BNE_ENABLE = 1'b0;	// bne enable pin
 				SHIFT_ENABLE = 1'b1;	// right left shift enable pin
 				SHIFTOP = 2'b11;	// shift type
-				BUSYWAIT = 1'b0;    // BUSYWAIT signal for stall cpu
 				READ = 1'b0;		// memory read
 				WRITE = 1'b0;		// memory write
 				MUX_WRITEDATA = 1'b0; // selecting data from memory
@@ -224,7 +214,6 @@ module control_unit(BUSYWAIT, READ, WRITE, MUX_WRITEDATA, ALUOP,MUX_2SCMPL,MUX_I
 				BNE_ENABLE = 1'b0;	// bne enable pin
 				SHIFT_ENABLE = 1'b1;	// right left shift enable pin
 				SHIFTOP = 2'b00;	// shift type
-				BUSYWAIT = 1'b0;    // BUSYWAIT signal for stall cpu
 				READ = 1'b0;		// memory read
 				WRITE = 1'b0;		// memory write
 				MUX_WRITEDATA = 1'b0; // selecting data from memory
@@ -243,7 +232,6 @@ module control_unit(BUSYWAIT, READ, WRITE, MUX_WRITEDATA, ALUOP,MUX_2SCMPL,MUX_I
 				BNE_ENABLE = 1'b0;	// bne enable pin
 				SHIFT_ENABLE = 1'b1;	// right left shift enable pin
 				SHIFTOP = 2'b01;	// shift type
-				BUSYWAIT = 1'b0;    // BUSYWAIT signal for stall cpu
 				READ = 1'b0;		// memory read
 				WRITE = 1'b0;		// memory write
 				MUX_WRITEDATA = 1'b0; // selecting data from memory
@@ -262,7 +250,6 @@ module control_unit(BUSYWAIT, READ, WRITE, MUX_WRITEDATA, ALUOP,MUX_2SCMPL,MUX_I
 				BNE_ENABLE = 1'b0;	// bne enable pin
 				SHIFT_ENABLE = 1'b1;	// right left shift enable pin
 				SHIFTOP = 2'b10;	// shift type
-				BUSYWAIT = 1'b0;    // BUSYWAIT signal for stall cpu
 				READ = 1'b0;		// memory read
 				WRITE = 1'b0;		// memory write
 				MUX_WRITEDATA = 1'b0; // selecting data from memory
@@ -283,7 +270,6 @@ module control_unit(BUSYWAIT, READ, WRITE, MUX_WRITEDATA, ALUOP,MUX_2SCMPL,MUX_I
 				BNE_ENABLE = 1'b1;	// bne enable pin
 				SHIFT_ENABLE = 1'b0;	// right left shift enable pin
 				SHIFTOP = 2'bXX;	// shift type
-				BUSYWAIT = 1'b0;    // BUSYWAIT signal for stall cpu
 				READ = 1'b0;		// memory read
 				WRITE = 1'b0;		// memory write
 				MUX_WRITEDATA = 1'b0; // selecting data from memory
@@ -300,7 +286,6 @@ module control_unit(BUSYWAIT, READ, WRITE, MUX_WRITEDATA, ALUOP,MUX_2SCMPL,MUX_I
 				BNE_ENABLE = 1'b0;	// bne enable pin
 				SHIFT_ENABLE = 1'b0;	// right left shift enable pin
 				SHIFTOP = 2'bXX;	// shift type
-				BUSYWAIT = 1'b1;    // BUSYWAIT signal for stall cpu
 				READ = 1'b1;		// memory read
 				WRITE = 1'b0;		// memory write
 				MUX_WRITEDATA = 1'b1; // selecting data from memory
@@ -316,7 +301,6 @@ module control_unit(BUSYWAIT, READ, WRITE, MUX_WRITEDATA, ALUOP,MUX_2SCMPL,MUX_I
 				BNE_ENABLE = 1'b0;	// bne enable pin
 				SHIFT_ENABLE = 1'b0;	// right left shift enable pin
 				SHIFTOP = 2'bXX;	// shift type
-				BUSYWAIT = 1'b1;    // BUSYWAIT signal for stall cpu
 				READ = 1'b1;		// memory read
 				WRITE = 1'b0;		// memory write
 				MUX_WRITEDATA = 1'b1; // selecting data from memory
@@ -332,7 +316,6 @@ module control_unit(BUSYWAIT, READ, WRITE, MUX_WRITEDATA, ALUOP,MUX_2SCMPL,MUX_I
 				BNE_ENABLE = 1'b0;	// bne enable pin
 				SHIFT_ENABLE = 1'b0;	// right left shift enable pin
 				SHIFTOP = 2'bXX;	// shift type
-				BUSYWAIT = 1'b1;    // BUSYWAIT signal for stall cpu
 				READ = 1'b0;		// memory read
 				WRITE = 1'b1;		// memory write
 				MUX_WRITEDATA = 1'b1; // selecting data from memory
@@ -348,7 +331,6 @@ module control_unit(BUSYWAIT, READ, WRITE, MUX_WRITEDATA, ALUOP,MUX_2SCMPL,MUX_I
 				BNE_ENABLE = 1'b0;	// bne enable pin
 				SHIFT_ENABLE = 1'b0;	// right left shift enable pin
 				SHIFTOP = 2'bXX;	// shift type
-				BUSYWAIT = 1'b1;    // BUSYWAIT signal for stall cpu
 				READ = 1'b0;		// memory read
 				WRITE = 1'b1;		// memory write
 				MUX_WRITEDATA = 1'b1; // selecting data from memory
