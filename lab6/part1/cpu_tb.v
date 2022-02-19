@@ -6,7 +6,7 @@
 
 module cpu_tb;
 
-    reg CLK, RESET;
+    reg CLK, RESET, BUSYWAIT;
     wire [31:0] PC;
     wire [31:0] INSTRUCTION;
     
@@ -43,7 +43,7 @@ module cpu_tb;
      CPU
     -----
     */
-    cpu mycpu(PC, INSTRUCTION, CLK, RESET);
+    cpu mycpu(PC, INSTRUCTION, CLK, RESET, BUSYWAIT);
 
     initial
     begin
@@ -54,6 +54,7 @@ module cpu_tb;
         
         CLK = 1'b0;
         RESET = 1'b0;
+        
         
         // TODO: Reset the CPU (by giving a pulse to RESET signal) to start the program execution
         

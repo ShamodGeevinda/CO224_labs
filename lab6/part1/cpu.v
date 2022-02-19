@@ -17,14 +17,15 @@
 `include "barrelShifter.v"
 `include "datamemory.v"
 
-module cpu(PC, INSTRUCTION, CLK, RESET);
+module cpu(PC, INSTRUCTION, CLK, RESET, BUSYWAIT);
 	
 	// port declarations
 	input [31:0] INSTRUCTION;		// this is for 32 bits instruction
-	input CLK, RESET;			// 1 bit clock and reset
+	input CLK, RESET, BUSYWAIT;			// 1 bit clock and reset
 	output reg[31:0] PC;			// 32 bits PC
 	
-	wire TWOs_ENABLE, IMMD_ENABLE, WRITEENABLE, ZERO, BEQ_ENABLE, JUMP_ENABLE, BEQ_SELECT,BEQ_JUMP_ENABLE,BUSYWAIT, READ, WRITE, MUX_WRITEDATA;
+	
+	wire TWOs_ENABLE, IMMD_ENABLE, WRITEENABLE, ZERO, BEQ_ENABLE, JUMP_ENABLE, BEQ_SELECT,BEQ_JUMP_ENABLE, READ, WRITE, MUX_WRITEDATA;
 	wire BNE_ENABLE, SHIFT_ENABLE;							//task 5 new control signal
 	wire BNE_BEQ_JUMP_ENABLE,BNE_SELECT;		// task 5 other wires
 	wire [1:0] SHIFTOP;
@@ -35,6 +36,8 @@ module cpu(PC, INSTRUCTION, CLK, RESET);
 
 
 	// initiating the modules
+	data_memory dm(CLK, RESET, READ, WRITE, ADDRESS, WRITEDATA, READDATA, BUSYWAIT);
+
 	control_unit my_cu (BUSYWAIT, READ, WRITE, MUX_WRITEDATA, ALUOP, TWOs_ENABLE, IMMD_ENABLE, WRITEENABLE, BEQ_ENABLE, JUMP_ENABLE, BNE_ENABLE, SHIFT_ENABLE, SHIFTOP,OPCODE);		   	// control unit module
 	reg_file myreg (WRITE_DATA, REGOUT1, REGOUT2, WRITEREG[2:0], READREG1[2:0], READREG2[2:0], WRITEENABLE, CLK, RESET);	// 8x8 register file
 	twos_complement_converter my2s_cmpl (TWOs_CMPLEMENT, REGOUT2);								// 2s complement unit
@@ -53,7 +56,6 @@ module cpu(PC, INSTRUCTION, CLK, RESET);
 	newAdder address_adder (JUMP_PC , { {22{WRITEREG[7]}},WRITEREG,2'b00}, PC_ADD_4 );					// add 2 instructions 
 	mux_2to1_32bits mux_beq(PC_NEXT , PC_ADD_4, JUMP_PC, BNE_BEQ_JUMP_ENABLE);							// 32 bits size 2*1 mux 
 	
-	data_memory dm(CLK, RESET, READ, WRITE, ADDRESS, WRITEDATA, READDATA, BUSYWAIT);
 			
 
 
@@ -78,15 +80,20 @@ module cpu(PC, INSTRUCTION, CLK, RESET);
 	
 
 
-	always @ ( posedge CLK ) begin
+	always @ ( posedge CLK  ) begin
 		
-		if( RESET )	
+		if( RESET )	 
 
-			PC = 0 ;						// reset the PC
+			PC = 0 ;
+									// reset the PC
 		
-		else
-	   		PC = #1 PC_NEXT ;				// increment the PC  
-
+		else  
+			// if (BUSYWAIT!=1)  
+	   			PC = #1 PC_NEXT ;	
+				   			// increment the PC  
+			// else  
+			// 	PC = #1	PC	;
+				
 	end		
 
 
