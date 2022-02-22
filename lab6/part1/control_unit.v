@@ -318,7 +318,7 @@ module control_unit(BUSYWAIT, READ, WRITE, MUX_WRITEDATA, ALUOP,MUX_2SCMPL,MUX_I
 				SHIFTOP = 2'bXX;	// shift type
 				READ = 1'b0;		// memory read
 				WRITE = 1'b1;		// memory write
-				MUX_WRITEDATA = 1'b1; // selecting data from memory
+				MUX_WRITEDATA = 1'b0; // selecting data from memory
 				
 			end
 			8'b00001011: begin // swi
@@ -333,7 +333,7 @@ module control_unit(BUSYWAIT, READ, WRITE, MUX_WRITEDATA, ALUOP,MUX_2SCMPL,MUX_I
 				SHIFTOP = 2'bXX;	// shift type
 				READ = 1'b0;		// memory read
 				WRITE = 1'b1;		// memory write
-				MUX_WRITEDATA = 1'b1; // selecting data from memory
+				MUX_WRITEDATA = 1'b0; // selecting data from memory
 				
 			end
 			

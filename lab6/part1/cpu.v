@@ -15,29 +15,34 @@
 `include "twos_complement_converter.v"
 `include "new_adder.v"
 `include "barrelShifter.v"
-`include "datamemory.v"
+// `include "datamemory.v"
 
-module cpu(PC, INSTRUCTION, CLK, RESET);
+module cpu(PC, INSTRUCTION, CLK, RESET, READ, WRITE, BUSYWAIT,ADDRESS, WRITEDATA, READDATA);
 	
 	// port declarations
 	input [31:0] INSTRUCTION;		// this is for 32 bits instruction
-	input CLK, RESET;			// 1 bit clock and reset
+	input CLK, RESET, BUSYWAIT;			// 1 bit clock and reset
+	input [7:0]   READDATA;
 	output reg[31:0] PC;			// 32 bits PC
+	output  READ ,WRITE;
+	output [7:0] ADDRESS  ;
+	output [7:0] WRITEDATA;
+	// output reg[7:0] READDATA;
+	// output reg BUSYWAIT;
 	// output  BUSYWAIT;
 	
-	wire TWOs_ENABLE, IMMD_ENABLE, WRITEENABLE, ZERO, BEQ_ENABLE, JUMP_ENABLE, BEQ_SELECT,BEQ_JUMP_ENABLE, READ, WRITE, MUX_WRITEDATA;
+	wire TWOs_ENABLE, IMMD_ENABLE, WRITEENABLE, ZERO, BEQ_ENABLE, JUMP_ENABLE, BEQ_SELECT,BEQ_JUMP_ENABLE,  MUX_WRITEDATA;
 	wire BNE_ENABLE, SHIFT_ENABLE;							//task 5 new control signal
 	wire BNE_BEQ_JUMP_ENABLE,BNE_SELECT;		// task 5 other wires
-	wire BUSYWAIT;
+	//wire BUSYWAIT;
 	wire [1:0] SHIFTOP;
 	wire [2:0] ALUOP;
 	wire [7:0] WRITEREG, READREG1, READREG2; 
-	wire [7:0] OPCODE, ALU_RESULT, REGOUT1, REGOUT2, TWOs_CMPLEMENT, MUX1_RESULT, MUX2_RESULT,MUX4_RESULT, IMMEDIATE_VAL, WRITE_DATA, OUT_BARREL,ALU_BARREL_RESULT,READDATA, ADDRESS, WRITEDATA;
+	wire [7:0] OPCODE, ALU_RESULT, REGOUT1, REGOUT2, TWOs_CMPLEMENT, MUX1_RESULT, MUX2_RESULT,MUX4_RESULT, IMMEDIATE_VAL, WRITE_DATA, OUT_BARREL,ALU_BARREL_RESULT;
 	wire [31:0] PC_NEXT, JUMP_PC, PC_ADD_4;
 
-
-	// initiating the modules
-	data_memory dm(CLK, RESET, READ, WRITE, ADDRESS, WRITEDATA, READDATA, BUSYWAIT);
+	
+	// data_memory dm(CLK, RESET, READ, WRITE, ADDRESS, WRITEDATA, READDATA, BUSYWAIT);
 
 	control_unit my_cu (BUSYWAIT, READ, WRITE, MUX_WRITEDATA, ALUOP, TWOs_ENABLE, IMMD_ENABLE, WRITEENABLE, BEQ_ENABLE, JUMP_ENABLE, BNE_ENABLE, SHIFT_ENABLE, SHIFTOP,OPCODE);		   	// control unit module
 	reg_file myreg (WRITE_DATA, REGOUT1, REGOUT2, WRITEREG[2:0], READREG1[2:0], READREG2[2:0], WRITEENABLE, CLK, RESET);	// 8x8 register file

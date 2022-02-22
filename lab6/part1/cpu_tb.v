@@ -3,13 +3,15 @@
 // Author: Isuru Nawinne
 
 `include "cpu.v"
+`include "datamemory.v"
 
 module cpu_tb;
 
-    reg CLK, RESET,BUSYWAIT;
+    reg CLK, RESET;
     wire [31:0] PC;
     wire [31:0] INSTRUCTION;
-    // wire BUSYWAIT;
+    wire BUSYWAIT, READ, WRITE;
+    wire [7:0] READDATA, ADDRESS, WRITEDATA;
     
     /* 
     ------------------------
@@ -26,6 +28,7 @@ module cpu_tb;
     
 	assign #2 INSTRUCTION = {instr_mem[PC + 3],instr_mem[PC + 2],instr_mem[PC + 1],instr_mem[PC]};	// fetching instruction with time delay
 	
+    // assign  READDATA = CPU_READDATA ;
     initial
     begin
         // Initialize instruction memory with the set of instructions you need execute on CPU
@@ -44,14 +47,16 @@ module cpu_tb;
      CPU
     -----
     */
-    cpu mycpu(PC, INSTRUCTION, CLK, RESET);
+    cpu mycpu(PC, INSTRUCTION, CLK, RESET, READ, WRITE, BUSYWAIT,ADDRESS, WRITEDATA, READDATA);
+    data_memory dm(CLK, RESET, READ, WRITE, ADDRESS, WRITEDATA, READDATA, BUSYWAIT);
+
 
     initial
     begin
     
         // generate files needed to plot the waveform using GTKWave
         $dumpfile("cpu_wavedata.vcd");
-	$dumpvars(0, cpu_tb);
+	    $dumpvars(0, cpu_tb);
         
         CLK = 1'b0;
         RESET = 1'b0;
