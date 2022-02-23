@@ -48,6 +48,8 @@ module cpu_tb;
     -----
     */
     cpu mycpu(PC, INSTRUCTION, CLK, RESET, READ, WRITE, BUSYWAIT,ADDRESS, WRITEDATA, READDATA);
+
+    // connecting data memory
     data_memory dm(CLK, RESET, READ, WRITE, ADDRESS, WRITEDATA, READDATA, BUSYWAIT);
 
 
@@ -70,7 +72,7 @@ module cpu_tb;
 
 	RESET = 1'b0;
         // finish simulation after some time
-        #500
+        #1500
         $finish;
         
     end

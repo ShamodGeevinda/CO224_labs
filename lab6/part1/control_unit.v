@@ -7,17 +7,29 @@
  */
 
 
-module control_unit(BUSYWAIT, READ, WRITE, MUX_WRITEDATA, ALUOP,MUX_2SCMPL,MUX_IMMD,WRITEENABLE,BEQ_ENABLE, JUMP_ENABLE, BNE_ENABLE, SHIFT_ENABLE, SHIFTOP, OP);
+module control_unit(BUSYWAIT,INSTRUCTION, READ, WRITE, MUX_WRITEDATA, ALUOP,MUX_2SCMPL,MUX_IMMD,WRITEENABLE,BEQ_ENABLE, JUMP_ENABLE, BNE_ENABLE, SHIFT_ENABLE, SHIFTOP, OP);
 
 	input [7:0] OP;						// opcode
 	input BUSYWAIT;
+	input [31:0] INSTRUCTION;
 	output reg MUX_2SCMPL, MUX_IMMD, WRITEENABLE, BEQ_ENABLE, JUMP_ENABLE, BNE_ENABLE, SHIFT_ENABLE, READ, WRITE, MUX_WRITEDATA;		// 1 bit outputs from control unit
 	output reg [1:0] SHIFTOP;				// shift type
 	output reg [2:0] ALUOP;					// 3-bits ALU opcode
 
+	// always @(!BUSYWAIT) begin
+	// 	READ = 1'b0;		// memory read
+	// 	WRITE = 1'b0;		// memory write
+	// end
 	
 	always @(*)
+
 	begin 	
+
+		if (!BUSYWAIT) begin
+			READ = 1'b0;		// memory read
+			WRITE = 1'b0;		// memory write
+			
+		end
 	 wait(BUSYWAIT==0);	
 		#1
 
@@ -339,6 +351,28 @@ module control_unit(BUSYWAIT, READ, WRITE, MUX_WRITEDATA, ALUOP,MUX_2SCMPL,MUX_I
 			
 			
 		endcase
+	end
+
+	// set read and write singnals to zero when busywait signal is zero
+	always @(BUSYWAIT) begin
+		if (BUSYWAIT == 0) begin
+			READ = 0;
+			WRITE = 0;
+
+		end
+		
+	end
+
+
+	
+	always @(posedge BUSYWAIT) begin
+		WRITEENABLE = 0;
+	end
+
+
+	always @(negedge BUSYWAIT) begin
+		WRITEENABLE = 1;
+
 	end
 
 endmodule

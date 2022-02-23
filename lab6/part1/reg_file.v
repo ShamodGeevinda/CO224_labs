@@ -19,7 +19,7 @@ module reg_file(IN, OUT1, OUT2, INADDRESS, OUT1ADDRESS, OUT2ADDRESS, WRITE, CLK,
 	reg [7:0] registers[7:0];		// this represents the 8-bits(1 byte)  8 registers ( 8x8 register file)
 
 
-	integer regNum ;			// represet the register number for the RESET task
+	integer regNum ,i;			// represet the register number for the RESET task
 
 	// assign given addresses values to OUT1 and OUT2 respectively. this is asynchronous with delay 2 units
 	assign #2 OUT1 = registers[OUT1ADDRESS];	
@@ -55,6 +55,14 @@ module reg_file(IN, OUT1, OUT2, INADDRESS, OUT1ADDRESS, OUT2ADDRESS, WRITE, CLK,
 				
 				
 	
+	end
+
+
+	initial
+	begin
+    $dumpfile("cpu_wavedata.vcd");
+    for(i=0;i<8;i++)
+        $dumpvars(1,registers[i]);
 	end
 
 endmodule	

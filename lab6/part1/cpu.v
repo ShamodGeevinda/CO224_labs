@@ -44,7 +44,7 @@ module cpu(PC, INSTRUCTION, CLK, RESET, READ, WRITE, BUSYWAIT,ADDRESS, WRITEDATA
 	
 	// data_memory dm(CLK, RESET, READ, WRITE, ADDRESS, WRITEDATA, READDATA, BUSYWAIT);
 
-	control_unit my_cu (BUSYWAIT, READ, WRITE, MUX_WRITEDATA, ALUOP, TWOs_ENABLE, IMMD_ENABLE, WRITEENABLE, BEQ_ENABLE, JUMP_ENABLE, BNE_ENABLE, SHIFT_ENABLE, SHIFTOP,OPCODE);		   	// control unit module
+	control_unit my_cu (BUSYWAIT,INSTRUCTION, READ, WRITE, MUX_WRITEDATA, ALUOP, TWOs_ENABLE, IMMD_ENABLE, WRITEENABLE, BEQ_ENABLE, JUMP_ENABLE, BNE_ENABLE, SHIFT_ENABLE, SHIFTOP,OPCODE);		   	// control unit module
 	reg_file myreg (WRITE_DATA, REGOUT1, REGOUT2, WRITEREG[2:0], READREG1[2:0], READREG2[2:0], WRITEENABLE, CLK, RESET);	// 8x8 register file
 	twos_complement_converter my2s_cmpl (TWOs_CMPLEMENT, REGOUT2);								// 2s complement unit
 	
@@ -86,24 +86,21 @@ module cpu(PC, INSTRUCTION, CLK, RESET, READ, WRITE, BUSYWAIT,ADDRESS, WRITEDATA
 	
 
 
-	always @ ( posedge CLK  ) begin
+	always @ ( posedge CLK ) begin
 		
-		if( RESET )	 
+		if( RESET )	
 
-			PC = 0 ;
-									// reset the PC
+			PC = 0 ;						// reset the PC
 		
-		else  
-			 if (BUSYWAIT!=1)  
-	   			PC = #1 PC_NEXT ;	
-				   			// increment the PC  
-			 else  
-			 	PC = #1	PC	;
-				
-	end	
-	// always @( BUSYWAIT) begin
-	// 	PC = #1 PC;
-	// end	
+		else 
+		begin
+			wait(!BUSYWAIT);
+			//   read = 0;
+			//  write = 0;
+			PC = #1 PC_NEXT ;
+		end
+
+	end		
 
 
 endmodule	
