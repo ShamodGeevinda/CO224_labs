@@ -6,7 +6,7 @@
 
 // There are four modules for operations which are OR, AND, ADD and FORWARD.
 // input and output are 8-bits
-
+`timescale 1ns/100ps
 `include "mymul.v"
 
 // module MULT(mult_Out,DATA1,DATA2);

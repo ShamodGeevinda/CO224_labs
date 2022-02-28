@@ -3,7 +3,7 @@
  *
  *
  */
-
+`timescale 1ns/100ps
 module mux_4to1_1bits(RESULT, INPUT1, INPUT2, INPUT3, INPUT4, SELECT);
 
 	input INPUT1, INPUT2, INPUT3, INPUT4;			// 1 bits inputs

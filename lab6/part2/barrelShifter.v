@@ -1,3 +1,4 @@
+`timescale 1ns/100ps
 `include "mux_2to1_1bits.v"
 `include "mux_2to1_8bits.v"
 `include "mux_4to1_1bits.v"

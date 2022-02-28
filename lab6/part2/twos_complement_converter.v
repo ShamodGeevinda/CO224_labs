@@ -5,7 +5,7 @@
  *
  *
  */ 
-
+`timescale 1ns/100ps
 module twos_complement_converter(RESULT, INPUT);
 	
 	// port declaration

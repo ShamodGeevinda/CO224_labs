@@ -1,3 +1,4 @@
+`timescale 1ns/100ps
 `include "halfAdder.v"
 
 // full adder module

@@ -3,7 +3,7 @@
  *	
  *
  */
- 
+ `timescale 1ns/100ps
  module mux_4to1_8bits(RESULT, INPUT1, INPUT2, INPUT3, INPUT4, SELECT);
  
 	input [7:0]INPUT1, INPUT2, INPUT3, INPUT4;	// 8-bits inputs

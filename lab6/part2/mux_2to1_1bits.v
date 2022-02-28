@@ -3,7 +3,7 @@
  *	Gate level modeling for 2 to 1 MUX
  *
  */
-
+`timescale 1ns/100ps
 
 module mux_2to1_1bits(RESULT, INPUT1, INPUT2, SELECT);
 	

@@ -4,7 +4,7 @@
  *	CPU
  *
  */ 
-
+`timescale 1ns/100ps
 
 `include "alu.v"
 `include "adder.v"

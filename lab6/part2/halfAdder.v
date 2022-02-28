@@ -1,4 +1,4 @@
-
+`timescale 1ns/100ps
 // half addder module
 module half_adder(SUM,CARRY,INPUT1,INPUT2);
 

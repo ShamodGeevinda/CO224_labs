@@ -5,6 +5,7 @@
 `include "cpu.v"
 `include "datamemory.v"
 `include "cache.v"
+`timescale 1ns/100ps
 
 module cpu_tb;
 

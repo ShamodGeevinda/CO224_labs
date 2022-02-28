@@ -5,7 +5,7 @@
  * 
  *
  */
-
+`timescale 1ns/100ps
 
 module newAdder(RESULT, INPUT1, INPUT2);
 	

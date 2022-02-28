@@ -1,4 +1,4 @@
-
+`timescale 1ns/100ps
 module mux_2to1_32bits(RESULT, INPUT1, INPUT2, SELECT);
 
 	// port declarartion
