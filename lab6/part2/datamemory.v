@@ -27,7 +27,7 @@ input[5:0]      	address;
 input[31:0]     	writedata;
 output reg [31:0]	readdata;
 output reg      	busywait;
-
+integer i;
 //Declare memory array 256x8-bits 
 reg [7:0] memory_array [255:0];
 

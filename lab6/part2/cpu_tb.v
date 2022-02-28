@@ -3,7 +3,8 @@
 // Author: Isuru Nawinne
 
 `include "cpu.v"
-`include "256x8-bit data memory.v"
+`include "datamemory.v"
+`include "cache.v"
 
 module cpu_tb;
 
@@ -11,10 +12,11 @@ module cpu_tb;
 
 	//reg [7:0] address, writedata, READDATA;
 	
-	wire BUSYWAIT, WRITE, READ ;
+	wire BUSYWAIT, WRITE, READ, mem_busywait,mem_write, mem_read  ;
 	wire [7:0] READDATA, WRITEDATA, ADDRESS;
-    wire [31:0] PC;
+    wire [31:0] PC, mem_readdata, mem_writedata;
     wire [31:0] INSTRUCTION;
+    wire [5:0] mem_address;
     
     /* 
     ------------------------
@@ -52,18 +54,26 @@ module cpu_tb;
 	
 	 /*
     -----
-     DATA MEMORY
+     CACHE MEMORY
     -----
     */
 	
-	data_memory my_data_memeory(CLK, RESET, READ, WRITE, ADDRESS, WRITEDATA, READDATA, BUSYWAIT );
+	dcache my_datacache(CLK, RESET, READ, WRITE, ADDRESS, WRITEDATA, READDATA, BUSYWAIT, mem_read,mem_write,mem_busywait,mem_writedata,mem_readdata,mem_address );
+
+    /*
+    -----
+     DATA MEMORY
+    -----
+    */
+    data_memory my_data_memory(CLK, RESET, mem_read, mem_write, mem_address, mem_writedata, mem_readdata, mem_busywait );
+
 
     initial
     begin
     
         // generate files needed to plot the waveform using GTKWave
         $dumpfile("cpu_wavedata.vcd");
-	$dumpvars(0, cpu_tb);
+	    $dumpvars(0, cpu_tb);
         
         CLK = 1'b0;
         RESET = 1'b0;
