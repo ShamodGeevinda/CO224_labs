@@ -375,15 +375,15 @@ module control_unit(BUSYWAIT, INSTRUCTION, WRITE, READ, MUX_MEMORY, ALUOP,MUX_2S
 
 
 	
-	always @(posedge BUSYWAIT) begin
-		WRITEENABLE = 0;
-	end
+	// always @(posedge BUSYWAIT) begin
+	// 	WRITEENABLE = 0;
+	// end
 
 
-	always @(negedge BUSYWAIT) begin
-		WRITEENABLE = 1;
+	// always @(negedge BUSYWAIT) begin
+	// 	WRITEENABLE = 1;
 
-	end
+	// end
 
 endmodule
 					

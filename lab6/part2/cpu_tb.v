@@ -4,7 +4,8 @@
 
 `include "cpu.v"
 `include "datamemory.v"
-`include "cache.v"
+ `include "cache.v"
+
 `timescale 1ns/100ps
 
 module cpu_tb;
@@ -46,6 +47,9 @@ module cpu_tb;
         // METHOD 2: loading instr_mem content from instr_mem.mem file
         $readmemb("instr_mem.mem", instr_mem);
     end
+
+
+    
     /*
     -----
      CPU
@@ -58,9 +62,8 @@ module cpu_tb;
      CACHE MEMORY
     -----
     */
-	
-	dcache my_datacache(CLK, RESET, READ, WRITE, ADDRESS, WRITEDATA, READDATA, BUSYWAIT, mem_read,mem_write,mem_busywait,mem_writedata,mem_readdata,mem_address );
-
+    dcache mycache(CLK,RESET,READ,WRITE,ADDRESS,WRITEDATA,mem_busywait,mem_readdata,READDATA,mem_read,mem_write,BUSYWAIT,mem_address,mem_writedata );
+    
     /*
     -----
      DATA MEMORY
