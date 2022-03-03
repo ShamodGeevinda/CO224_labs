@@ -101,17 +101,17 @@ module dcache (
     end
 
 
-    // Reading data blocks asynchronously from the cache to send to register file according to the offset, if it is a read hit
-  // assign #1 readdata = ((address[1:0] == 2'b01) && read && HITSIGNAL) ? DATA[15:8] :
-   //                      ((address[1:0] == 2'b10) && read && HITSIGNAL) ? DATA[23:16] :
-   //                      ((address[1:0] == 2'b11) && read && HITSIGNAL) ? DATA[31:24] : DATA[7:0];
+   
+  
     always @(posedge clock) begin
-    if((write||read) && HITSIGNAL) 
-    begin
-    readhit = 1;
-   //readindex = index;
+        if((write||read) && HITSIGNAL) 
+        begin
+        readhit = 1;
+        //readindex = index;
+         end
     end
-end
+
+     // Reading data blocks asynchronously from the cache to send to register file according to the offset, if it is a read hit
     always @(*)
 	begin
 	if(readhit)begin
@@ -215,6 +215,7 @@ end
                 mem_address = 6'dx;
                 mem_writedata = 32'dx;
                 busywait = 0;
+                readhit = 0;
 
             end
          
