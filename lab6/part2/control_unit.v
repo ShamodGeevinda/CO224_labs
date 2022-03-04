@@ -8,16 +8,16 @@
 
 `timescale 1ns/100ps
 
-module control_unit(BUSYWAIT, INSTRUCTION, WRITE, READ, MUX_MEMORY, ALUOP,MUX_2SCMPL,MUX_IMMD,WRITEENABLE,BEQ_ENABLE, JUMP_ENABLE, BNE_ENABLE, SHIFT_ENABLE, SHIFTOP, OP );
+module control_unit(BUSYWAIT, INSTRUCTION, WRITE, READ, MUX_MEMORY, ALUOP,MUX_2SCMPL,MUX_IMMD,FINAL_WRITEENABLE,BEQ_ENABLE, JUMP_ENABLE, BNE_ENABLE, SHIFT_ENABLE, SHIFTOP, OP );
 
 
 	input BUSYWAIT;
 	input [7:0] OP;						// opcode
 	input [31:0] INSTRUCTION;
-	output reg MUX_2SCMPL, MUX_IMMD, WRITEENABLE, BEQ_ENABLE, JUMP_ENABLE, BNE_ENABLE, SHIFT_ENABLE, WRITE, READ, MUX_MEMORY;		// 1 bit outputs from control unit
+	output reg MUX_2SCMPL, MUX_IMMD, FINAL_WRITEENABLE, BEQ_ENABLE, JUMP_ENABLE, BNE_ENABLE, SHIFT_ENABLE, WRITE, READ, MUX_MEMORY;		// 1 bit outputs from control unit
 	output reg [1:0] SHIFTOP;				// shift type
 	output reg [2:0] ALUOP;					// 3-bits ALU opcode
-
+	reg WRITEENABLE;
 	
 	always @(INSTRUCTION)
 	begin 	
@@ -384,6 +384,13 @@ module control_unit(BUSYWAIT, INSTRUCTION, WRITE, READ, MUX_MEMORY, ALUOP,MUX_2S
 	// 	WRITEENABLE = 1;
 
 	// end
+	always @(MUX_MEMORY, WRITEENABLE, BUSYWAIT) begin
+		// If data memory is not used and WRITEENABLE is 1, then we can write to register file
+        // If data memory is used and WRITEENABLE is 1 and busywait is not 1, then we can write to register
+		FINAL_WRITEENABLE = (!MUX_MEMORY & WRITEENABLE) | (MUX_MEMORY & WRITEENABLE & !BUSYWAIT);
+		
+	end
+
 
 endmodule
 					

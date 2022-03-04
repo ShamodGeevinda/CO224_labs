@@ -45,6 +45,19 @@ module dcache (
 
     integer i;
 
+    reg  readhit;
+    reg [2:0] index,tag;
+    reg [1:0] offset;
+
+    always @(address,read ,write)
+    begin
+    
+        // extract tag, index and offset from input address
+         {tag,index,offset} = address;
+
+       
+    end
+
     // Reset data cache
     always @ (reset)
     begin
@@ -74,12 +87,12 @@ module dcache (
     always @ (*)
     begin
         #1
-        DATA = STORE_DATA[address[4:2]];            // Getting 32 bit data corresponding to index given by memory address
+        DATA = STORE_DATA[index];            // Getting 32 bit data corresponding to index given by memory address
     end
 
-    assign #1 VALID = STORE_VALID[address[4:2]];    // Getting valid bit corresponding to index given by memory address
-    assign #1 DIRTY = STORE_DIRTY[address[4:2]];    // Getting dirty bit corresponding to index given by memory address
-    assign #1 TAG = STORE_TAG[address[4:2]];        // Getting tag 3 bits corresponding to index given by memory address
+    assign #1 VALID = STORE_VALID[index];    // Getting valid bit corresponding to index given by memory address
+    assign #1 DIRTY = STORE_DIRTY[index];    // Getting dirty bit corresponding to index given by memory address
+    assign #1 TAG = STORE_TAG[index];        // Getting tag 3 bits corresponding to index given by memory address
 
 
     wire COMPARATORSIGNAL;  // To store whether tag bits in corresponding index & tag bits given by memory address matches
@@ -87,7 +100,7 @@ module dcache (
 
 
     // Getting whether tag bits in corresponding index & tag bits given by memory address matches
-    assign #0.9 COMPARATORSIGNAL = (TAG == address[7:5]) ? 1 : 0;
+    assign #0.9 COMPARATORSIGNAL = (TAG == tag) ? 1 : 0;
 
 
     // If tag bits given by memory address matches with tag bits in corresponding index of cache memory & if it is a valid data block, it is a 'hit'(1)
@@ -131,18 +144,7 @@ module dcache (
 	end
 	end
 
-    reg  readhit;
-    reg [2:0] index,tag;
-    reg [1:0] offset;
-
-    always @(address,read ,write)
-    begin
     
-        // extract tag, index and offset from input address
-        #1 {tag,index,offset} = address;
-
-       
-    end
 
 
     // Writing data blocks to the cache if it is a 'hit' according to the offset
@@ -274,7 +276,7 @@ module dcache (
     /* Cache Controller FSM End */
 
 
-      initial
+    initial
     begin
         $dumpfile("cpu_wavedata.vcd");
         for(i=0;i<8;i++)
