@@ -5,6 +5,8 @@
 `include "cpu.v"
 `include "data memory.v"
 `include "cache.v"
+`include "instructionmemory.v"
+`include "icache.v"
 
 module cpu_tb;
 
@@ -12,12 +14,13 @@ module cpu_tb;
 
 	//reg [7:0] address, writedata, READDATA;
 	
-	wire BUSYWAIT, WRITE, READ, MEM_READ, MEM_WRITE, MEM_BUSYWAIT ;
-	wire [5:0] MEM_ADDRESS;
+	wire BUSYWAIT, WRITE, READ, MEM_READ, MEM_WRITE, MEM_BUSYWAIT, INSREAD, IMEM_BUSYWAIT ;
+	wire [5:0] MEM_ADDRESS, INS_ADDRESS;
 	wire [7:0] READDATA, WRITEDATA, ADDRESS;
 	wire [31:0] MEM_WRITEDATA, MEM_READDATA;
     wire [31:0] PC;
     wire [31:0] INSTRUCTION;
+    wire [127:0] READINST;
     
     /* 
     ------------------------
@@ -27,25 +30,26 @@ module cpu_tb;
     
     // TODO: Initialize an array of registers (8x1024) named 'instr_mem' to be used as instruction memory
 	
-	reg [7:0] instr_mem [1023:0]; 	// instruction array
+	//reg [7:0] instr_mem [1023:0]; 	// instruction array
     
     // TODO: Create combinational logic to support CPU instruction fetching, given the Program Counter(PC) value 
     //       (make sure you include the delay for instruction fetching here)
     
-	assign #2 INSTRUCTION = {instr_mem[PC + 3],instr_mem[PC + 2],instr_mem[PC + 1],instr_mem[PC]};	// fetching instruction with time delay
+	//assign #2 INSTRUCTION = {instr_mem[PC + 3],instr_mem[PC + 2],instr_mem[PC + 1],instr_mem[PC]};	// fetching instruction with time delay
 	
-    initial
-    begin
-        // Initialize instruction memory with the set of instructions you need execute on CPU
+    // initial
+    // begin
+    //     // Initialize instruction memory with the set of instructions you need execute on CPU
         
-        // METHOD 1: manually loading instructions to instr_mem
-        //{instr_mem[10'd3], instr_mem[10'd2], instr_mem[10'd1], instr_mem[10'd0]} = 32'b00000000000001000000000000000101;
-        //{instr_mem[10'd7], instr_mem[10'd6], instr_mem[10'd5], instr_mem[10'd4]} = 32'b00000000000000100000000000001001;
-        //{instr_mem[10'd11], instr_mem[10'd10], instr_mem[10'd9], instr_mem[10'd8]} = 32'b00000010000001100000010000000010;
+    //     // METHOD 1: manually loading instructions to instr_mem
+    //     //{instr_mem[10'd3], instr_mem[10'd2], instr_mem[10'd1], instr_mem[10'd0]} = 32'b00000000000001000000000000000101;
+    //     //{instr_mem[10'd7], instr_mem[10'd6], instr_mem[10'd5], instr_mem[10'd4]} = 32'b00000000000000100000000000001001;
+    //     //{instr_mem[10'd11], instr_mem[10'd10], instr_mem[10'd9], instr_mem[10'd8]} = 32'b00000010000001100000010000000010;
 		
-        // METHOD 2: loading instr_mem content from instr_mem.mem file
-        $readmemb("instr_mem.mem", instr_mem);
-    end
+    //     // METHOD 2: loading instr_mem content from instr_mem.mem file
+    //     $readmemb("instr_mem.mem", instr_mem);
+    // end
+
     /*
     -----
      CPU
@@ -69,6 +73,24 @@ module cpu_tb;
     */
 	
 	data_memory my_data_memeory(CLK, RESET, MEM_READ, MEM_WRITE, MEM_ADDRESS, MEM_WRITEDATA, MEM_READDATA, MEM_BUSYWAIT );
+    
+
+    /*
+    -----
+     INSTRUCTION CACHE
+    -----
+    */
+    icache my_icache(CLK ,RESET ,pc[9:0] ,iread ,imembusywait ,imemreaddata ,instruction ,ibusywait ,imemread ,imemaddress);
+
+    
+    /*
+    -----
+     INSTRUCTION MEMORY
+    -----
+    */
+    instruction_memory insmem(CLK,INSREAD,INS_ADDRESS,READINST,IMEM_BUSYWAIT);
+
+    
 
     initial
     begin
