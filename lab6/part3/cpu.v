@@ -27,7 +27,7 @@ module cpu(WRITEDATA, ADDRESS, WRITE, READ, PC, INSTRUCTION, CLK, RESET, BUSYWAI
 	input [7:0] READDATA;
 	output WRITE, READ ;		// for the data memory
 	output [7:0] WRITEDATA, ADDRESS;
-	
+	// output reg IREAD;
 	output reg[31:0] PC;			// 32 bits PC
 	
 	wire TWOs_ENABLE, IMMD_ENABLE, WRITEENABLE, ZERO, BEQ_ENABLE, JUMP_ENABLE, BEQ_SELECT,BEQ_JUMP_ENABLE, MUX_MEMORY_ENABLE;
@@ -98,6 +98,7 @@ module cpu(WRITEDATA, ADDRESS, WRITE, READ, PC, INSTRUCTION, CLK, RESET, BUSYWAI
 
 	end	
 
+	
 	
 	
 

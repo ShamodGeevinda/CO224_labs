@@ -10,11 +10,11 @@
 
 module cpu_tb;
 
-    reg CLK, RESET;
+    reg CLK, RESET, IREAD;
 
 	//reg [7:0] address, writedata, READDATA;
 	
-	wire BUSYWAIT, WRITE, READ, MEM_READ, MEM_WRITE, MEM_BUSYWAIT, INSREAD, IMEM_BUSYWAIT ;
+	wire BUSYWAIT, WRITE, READ, MEM_READ, MEM_WRITE, MEM_BUSYWAIT, INSREAD, IMEM_BUSYWAIT,I_BUSYWAIT, D_BUSYWAIT ;
 	wire [5:0] MEM_ADDRESS, INS_ADDRESS;
 	wire [7:0] READDATA, WRITEDATA, ADDRESS;
 	wire [31:0] MEM_WRITEDATA, MEM_READDATA;
@@ -64,7 +64,7 @@ module cpu_tb;
     */
 	
 	
-	dcache mycache( CLK, RESET, READ, WRITE, ADDRESS, WRITEDATA, MEM_BUSYWAIT, MEM_READDATA, READDATA, MEM_READ, MEM_WRITE, BUSYWAIT, MEM_ADDRESS, MEM_WRITEDATA);
+	dcache mycache( CLK, RESET, READ, WRITE, ADDRESS, WRITEDATA, MEM_BUSYWAIT, MEM_READDATA, READDATA, MEM_READ, MEM_WRITE, D_BUSYWAIT, MEM_ADDRESS, MEM_WRITEDATA);
 	
 	 /*
     -----
@@ -80,7 +80,7 @@ module cpu_tb;
      INSTRUCTION CACHE
     -----
     */
-    icache my_icache(CLK ,RESET ,pc[9:0] ,iread ,imembusywait ,imemreaddata ,instruction ,ibusywait ,imemread ,imemaddress);
+    icache my_icache(CLK ,RESET ,PC[9:0] ,IREAD ,IMEM_BUSYWAIT ,READINST ,INSTRUCTION ,I_BUSYWAIT ,INSREAD ,INS_ADDRESS);
 
     
     /*
@@ -90,7 +90,7 @@ module cpu_tb;
     */
     instruction_memory insmem(CLK,INSREAD,INS_ADDRESS,READINST,IMEM_BUSYWAIT);
 
-    
+    assign BUSYWAIT = D_BUSYWAIT || I_BUSYWAIT;
 
     initial
     begin
@@ -109,13 +109,28 @@ module cpu_tb;
 
 	RESET = 1'b0;
         // finish simulation after some time
-        #1500
+        #5000
         $finish;
         
     end
     
     // clock signal generation
     always #4 CLK = ~CLK;
+
+
+    always @(PC) begin
+		
+        IREAD = 1;
+        //$display("iread on");
+    end
+
+    always @(I_BUSYWAIT)
+    begin
+        if ( I_BUSYWAIT == 0)
+            IREAD = 0;
+
+		
+	end
  
 
 endmodule

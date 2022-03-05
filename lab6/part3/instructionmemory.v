@@ -8,7 +8,7 @@ Description	:
 This file presents a primitive instruction memory module for CO224 Lab 6 - Part 3
 This memory allows instructions to be read as 16-Byte blocks
 */
-
+`timescale 1ns/100ps
 module instruction_memory(
 	clock,
 	read,
