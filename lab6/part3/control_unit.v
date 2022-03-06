@@ -128,10 +128,10 @@ module control_unit(BUSYWAIT, INSTRUCTION, WRITE, READ, MUX_MEMORY, ALUOP,MUX_2S
                                 JUMP_ENABLE = 1'b0;     // jump enable pin
 				BNE_ENABLE = 1'b0;	// bne enable pin
 				SHIFT_ENABLE = 1'b0;	// right left shift enable pin
-				SHIFTOP = 2'bXX;	// shift type
+				//SHIFTOP = 2'bXX;	// shift type
 				WRITE = 1'b0;		// memory write pin
 				READ = 1'b0;		// memory read pin
-				MUX_MEMORY = 1'b0;	// memory output write to register access pin
+				//MUX_MEMORY = 1'b0;	// memory output write to register access pin
 				
                         end
 
@@ -139,14 +139,14 @@ module control_unit(BUSYWAIT, INSTRUCTION, WRITE, READ, MUX_MEMORY, ALUOP,MUX_2S
 			8'b00000111: begin
 
 				ALUOP = 3'b001;         // alu operation code
-                                MUX_2SCMPL = 1'b1;      // 2s complement select pin
-                                MUX_IMMD = 1'b0;        // immediadte value select pin
-                                WRITEENABLE = 1'b0;     // register write enable pin
-                                BEQ_ENABLE = 1'b1;      // branch equal enable pin
-                                JUMP_ENABLE = 1'b0;     // jump enable pin
+                MUX_2SCMPL = 1'b1;      // 2s complement select pin
+                MUX_IMMD = 1'b0;        // immediadte value select pin
+                WRITEENABLE = 1'b0;     // register write enable pin
+                BEQ_ENABLE = 1'b1;      // branch equal enable pin
+                JUMP_ENABLE = 1'b0;     // jump enable pin
 				BNE_ENABLE = 1'b0;	// bne enable pin
 				SHIFT_ENABLE = 1'b0;	// right left shift enable pin
-				SHIFTOP = 2'bXX;	// shift type
+				//SHIFTOP = 2'bXX;	// shift type
 				WRITE = 1'b0;		// memory write pin
 				READ = 1'b0;		// memory read pin
 				MUX_MEMORY = 1'b0;	// memory output write to register access pin
@@ -156,12 +156,12 @@ module control_unit(BUSYWAIT, INSTRUCTION, WRITE, READ, MUX_MEMORY, ALUOP,MUX_2S
 			// case for jump
 			8'b00000110: begin
 
-				ALUOP = 3'b111;         // alu operation code
-                                MUX_2SCMPL = 1'b0;      // 2s complement select pin
-                                MUX_IMMD = 1'b0;        // immediadte value select pin
-                                WRITEENABLE = 1'b0;     // register write enable pin
-                                BEQ_ENABLE = 1'b0;      // branch equal enable pin
-                                JUMP_ENABLE = 1'b1;     // jump enable pin
+				//ALUOP = 3'b111;         // alu operation code
+                //MUX_2SCMPL = 1'b0;      // 2s complement select pin
+                //MUX_IMMD = 1'b0;        // immediadte value select pin
+                WRITEENABLE = 1'b0;     // register write enable pin
+                BEQ_ENABLE = 1'b0;      // branch equal enable pin
+                JUMP_ENABLE = 1'b1;     // jump enable pin
 				BNE_ENABLE = 1'b0;	// bne enable pin
 				SHIFT_ENABLE = 1'b0;	// right left shift enable pin
 				SHIFTOP = 2'bXX;	// shift type
@@ -378,20 +378,20 @@ module control_unit(BUSYWAIT, INSTRUCTION, WRITE, READ, MUX_MEMORY, ALUOP,MUX_2S
 	
 
 	
-/*
-	always @(posedge BUSYWAIT) begin
-	
-		FINAL_WRITEENABLE = 0;
-		
-	end
-	
-	always @(negedge BUSYWAIT) begin
-	
-		FINAL_WRITEENABLE = 1;
-		
-	end
 
-*/
+	// always @(posedge BUSYWAIT) begin
+	
+	// 	FINAL_WRITEENABLE = 0;
+		
+	// end
+	
+	// always @(negedge BUSYWAIT) begin
+	
+	// 	FINAL_WRITEENABLE = 1;
+		
+	// end
+
+
 
 	always @(MUX_MEMORY, WRITEENABLE, BUSYWAIT) begin
 		// If data memory is not used and WRITEENABLE is 1, then we can write to register file
